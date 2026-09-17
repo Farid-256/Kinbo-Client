@@ -24,7 +24,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="px-5 md:px10 lg:px-20 py-2 border-b flex justify-between items-center sticky">
+            <nav className="px-5 md:px10 lg:px-20 py-2 border-b flex justify-between items-center sticky top-0 z-50 bg-white">
 
                 <div>
                     <Link className="flex items-center" href={'/'}>
