@@ -17,7 +17,7 @@ const Navbar = () => {
         setOpen(!open)
     }
 
-    const closeMenu = () =>{
+    const closeMenu = () => {
         setOpen(false)
     }
 
@@ -38,9 +38,9 @@ const Navbar = () => {
 
                     <Link href='/shop' className={`text-xl ${pathName === '/shop' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>Shop</Link>
 
-                    <Link href='/dashboard' className={`text-xl ${pathName === '/dashboard' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>Dashboard</Link>
-
                     <Link href='/about' className={`text-xl ${pathName === '/about' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>About</Link>
+
+                    <Link href='/dashboard' className={`text-xl ${pathName === '/dashboard' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>Dashboard</Link>
                 </div>
 
                 <div className="hidden md:flex items-center gap-10">
