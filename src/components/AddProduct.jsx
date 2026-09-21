@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { toast } from 'react-toastify';
 
 const AddProduct = () => {
@@ -13,7 +12,7 @@ const AddProduct = () => {
             
             method: 'POST',
             headers: {
-                'content-Type' :'application/json'
+                'Content-Type' :'application/json'
             },
             body: JSON.stringify(newProduct)
         })
