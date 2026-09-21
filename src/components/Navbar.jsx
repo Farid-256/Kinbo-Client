@@ -54,7 +54,10 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    <button className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-800 hover:text-white">Login</button>
+                    <Link href='/auth/login'>
+                        <button className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-800 hover:text-white">Login</button>
+                    </Link>
+
                 </div>
 
                 <button onClick={handleClick} className="md:hidden">{open === false ? <IoReorderThreeOutline className="text-3xl" /> : <RxCross2 className="text-3xl" />}</button>
@@ -73,7 +76,11 @@ const Navbar = () => {
 
                         <Link onClick={closeMenu} href='/about' className={`text-xl ${pathName === '/about' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>About</Link>
 
-                        <button onClick={closeMenu} className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-800 hover:text-white">Login</button>
+                        <Link href='/auth/login'>
+                            <button onClick={closeMenu} className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-800 hover:text-white">Login</button>
+                        </Link>
+
+
                     </div>
                     )
                 }
