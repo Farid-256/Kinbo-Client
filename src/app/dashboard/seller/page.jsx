@@ -1,11 +1,11 @@
 
 
-const page = () => {
+const Seller = () => {
     return (
         <div>
-            <h3>I am Seller</h3>
+            seller page
         </div>
     );
 };
 
-export default page;
+export default Seller;

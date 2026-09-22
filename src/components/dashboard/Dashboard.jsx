@@ -1,5 +1,3 @@
-
-
 import { Bars, Bell, Envelope, Gear, House, Magnifier, Person } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 
@@ -17,8 +15,7 @@ export function DashboardSidebar() {
         {navItems.map((item) => (
             <button
                 key={item.label}
-                className="flex items-center gap-3 cursor-pointer rounded-xl px-3 py-2.5 text-sm 
-                text-foreground transition-colors hover:bg-default"
+                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-default"
                 type="button"
             >
                 <item.icon className="size-5 text-muted" />
@@ -29,11 +26,11 @@ export function DashboardSidebar() {
 
     return (
         <>
-        <aside className="hidden w-64 border-r p-4 lg:block">
+        <aside className="hidden lg:block w-56 p-4 border-r border-default">
             {navContent}
         </aside>
             <Drawer>
-                <Button className='lg:hidden m-2' variant="secondary">
+                <Button className='md:hidden m-2' variant="secondary">
                     <Bars />
                     Sidebar
                 </Button>
