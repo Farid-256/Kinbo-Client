@@ -8,30 +8,32 @@ import { toast } from 'react-toastify';
 const Register = () => {
     const route = useRouter()
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
         const userData = Object.fromEntries(formData.entries())
 
-        if(userData.password !== userData.confirmPassword) {
+        if (userData.password !== userData.confirmPassword) {
             toast.error('Password not match')
             return
         }
 
-       const {data, error} = await authClient.signUp.email({
-        name: userData.name,
-        email: userData.email,
-        password: userData.password
-       })
+        const { data, error } = await authClient.signUp.email({
+            name: userData.name,
+            email: userData.email,
+            role: userData.role,
+            password: userData.password
+        })
 
-       if(error){
-        toast.error(error.message || 'Registation Faild')
-       }
+        if (error) {
+            toast.error(error.message || 'Registation Faild')
+            return
+        }
 
-       if(data){
-        // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+        if (data) {
+            // eslint-disable-next-line @next/next/no-location-assign-relative-destination
             window.location.href = '/';
-       }
+        }
     }
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 py-10 px-4">
@@ -62,6 +64,16 @@ const Register = () => {
                             placeholder="e.g. farid@example.com"
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
+                    </div>
+
+                    {/* Role */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Account Type</label>
+                        <select name="role" required defaultValue="customer"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                            <option value="customer">Customer (Buy Products)</option>
+                            <option value="business">Business (Sell Products)</option>
+                        </select>
                     </div>
 
                     {/* Password */}
