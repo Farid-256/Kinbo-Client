@@ -1,7 +1,8 @@
 'use client'
+import { signOut, useSession } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { BsCart3 } from "react-icons/bs";
 import { IoReorderThreeOutline } from "react-icons/io5";
@@ -12,6 +13,9 @@ import { RxCross2 } from "react-icons/rx";
 const Navbar = () => {
     const pathName = usePathname()
     const [open, setOpen] = useState(false)
+    const { data: session } = useSession()
+    const user = session?.user
+    const router = useRouter()
 
     const handleClick = () => {
         setOpen(!open)
@@ -21,10 +25,15 @@ const Navbar = () => {
         setOpen(false)
     }
 
+    const handleSignOut = async () => {
+        await signOut()
+        router.push('/auth/login')
+    }
+
 
     return (
         <>
-            <nav className="px-5 md:px10 lg:px-20 py-2 border-b flex justify-between items-center sticky top-0 z-50 bg-white">
+            <nav className="px-5 md:px-10 lg:px-20 py-2 border-b flex justify-between items-center sticky top-0 z-50 bg-white">
 
                 <div>
                     <Link className="flex items-center" href={'/'}>
@@ -54,17 +63,21 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    <Link href='/auth/login'>
-                        <button className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-800 hover:text-white">Login</button>
-                    </Link>
+                    <div>
+                        {
+                            user ?
+                                <button onClick={handleSignOut} className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-800 hover:text-white">Log Out</button> : <Link href='/auth/login'>
+                                    <button className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-800 hover:text-white">Login</button>
+                                </Link>
+                        }
+                    </div>
 
                 </div>
 
                 <button onClick={handleClick} className="md:hidden">{open === false ? <IoReorderThreeOutline className="text-3xl" /> : <RxCross2 className="text-3xl" />}</button>
-
-
             </nav>
 
+            {/* Mobile Menu */}
             <div className="md:hidden flex flex-col pr-10 items-end">
                 {
                     open === true && (<div className="flex flex-col gap-5">
@@ -76,11 +89,13 @@ const Navbar = () => {
 
                         <Link onClick={closeMenu} href='/about' className={`text-xl ${pathName === '/about' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>About</Link>
 
-                        <Link href='/auth/login'>
-                            <button onClick={closeMenu} className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-800 hover:text-white">Login</button>
-                        </Link>
-
-
+                        <div>
+                            {
+                                user ? <button onClick={() => {handleSignOut(); closeMenu();}} className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-800 hover:text-white">Log Out</button> : <Link href='/auth/login'>
+                                    <button onClick={closeMenu} className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-800 hover:text-white">Login</button>
+                                </Link>
+                            }
+                        </div>
                     </div>
                     )
                 }

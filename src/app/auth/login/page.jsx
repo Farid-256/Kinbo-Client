@@ -25,8 +25,9 @@ const Login = () => {
         }
 
         if(data){
-            toast.success('Login Successful')
-            route.push('/')
+            toast.success('Login Successful');
+            // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+            window.location.href = '/';
         }
     }
     return (

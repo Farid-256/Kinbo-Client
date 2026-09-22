@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 const Register = () => {
     const route = useRouter()
 
-
     const handleSubmit = async(e) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
@@ -30,8 +29,8 @@ const Register = () => {
        }
 
        if(data){
-        toast.success('Registation Successfull')
-        route.push('/')
+        // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+            window.location.href = '/';
        }
     }
     return (
