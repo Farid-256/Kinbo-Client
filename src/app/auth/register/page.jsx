@@ -26,7 +26,7 @@ const Register = () => {
        })
 
        if(error){
-        toast.error(error.message || 'Registation faild')
+        toast.error(error.message || 'Registation Faild')
        }
 
        if(data){
