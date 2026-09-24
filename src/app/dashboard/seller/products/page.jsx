@@ -10,7 +10,7 @@ const SellerProducts = async () => {
     return (
         <div className="p-6 max-w-7xl mx-auto">
 
-            {/* 📄 Page Header */}
+            {/*Page Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                 <div>
                     <h1 className="text-3xl font-bold text-gray-800">My Products</h1>
@@ -109,7 +109,6 @@ const SellerProducts = async () => {
                                             </span>
                                         </td>
 
-                                        {/* Actions (Edit + Delete) */}
                                         <td className="px-6 py-4">
                                             <div className="flex justify-end gap-2">
                                                 {/* Edit Button */}
