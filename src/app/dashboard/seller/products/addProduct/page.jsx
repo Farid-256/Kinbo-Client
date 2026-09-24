@@ -22,14 +22,15 @@ const AddProduct = () => {
             discountPrice: productData.discountPrice,
             stock: productData.stock,
             image: productData.image,
-            description: productData.description
+            description: productData.description,
+            company_id: 'company_123',
+            status: 'active'
         }
 
 
         const res = await creatProduct(dataSubmit)
 
         if(res.insertedId){
-            toast.success('Product added successfully')
             e.target.reset()
             router.push('/dashboard/seller')
             
