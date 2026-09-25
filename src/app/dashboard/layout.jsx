@@ -1,15 +1,17 @@
-import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar"
+import { DashBoardSideBar } from "@/components/DashboardSideBar"
 
 
-const dashboardLayout = ({children}) => {
+const layout = ({ children }) => {
     return (
         <div className="flex min-h-screen">
-            <DashboardSidebar></DashboardSidebar>
+            <DashBoardSideBar></DashBoardSideBar>
             <main className="flex-1">
                 {children}
             </main>
+
         </div>
     )
+       
 }
 
-export default dashboardLayout
+export default layout

@@ -1,11 +1,10 @@
-import { getCompanyProduct } from "@/lib/api/products";
+import { getCompanyProducts } from "@/lib/api/products";
 import Image from "next/image";
 import Link from "next/link";
 
 const SellerProducts = async () => {
-    const companyId = 'company_123';
-    const products = await getCompanyProduct(companyId);
-    console.log('Product ki asy',products)
+    const companyId = 'company_123'
+    const products = await getCompanyProducts(companyId)
 
     return (
         <div className="p-6 max-w-7xl mx-auto">
@@ -17,7 +16,7 @@ const SellerProducts = async () => {
                     <p className="text-gray-500 mt-1">Manage all your listed products in one place.</p>
                 </div>
                 <Link
-                    href="/dashboard/seller/products/addProduct"
+                    href="/dashboard/seller/products/addProducts"
                     className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition shadow-md"
                 >
                     + Add New Product

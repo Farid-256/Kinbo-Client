@@ -32,7 +32,7 @@ const Seller = () => {
                 </div>
             </div>
 
-  
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
@@ -46,7 +46,7 @@ const Seller = () => {
                     </div>
                 </div>
 
-  
+
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
                     <div className="p-4 bg-purple-50 text-purple-600 rounded-xl text-2xl">
                         <RiAlignItemBottomFill />
@@ -58,7 +58,7 @@ const Seller = () => {
                     </div>
                 </div>
 
-  
+
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
                     <div className="p-4 bg-orange-50 text-orange-600 rounded-xl text-2xl">
                         <BsBag />
@@ -70,7 +70,7 @@ const Seller = () => {
                     </div>
                 </div>
 
-  
+
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
                     <div className="p-4 bg-yellow-50 text-yellow-600 rounded-xl text-2xl">
                         <FaRegClock />
@@ -99,7 +99,7 @@ const Seller = () => {
                             </tr>
                         </thead>
                         <tbody className="text-sm">
-             
+
                             <tr className="border-b border-gray-50 hover:bg-gray-50 transition">
                                 <td className="px-6 py-4 font-medium text-gray-800 flex items-center gap-3">
                                     <span className="w-8 h-8 bg-gray-200 rounded-md flex items-center justify-center text-xs"><PiTShirtDuotone className="text-2xl" /></span>

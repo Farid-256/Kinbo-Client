@@ -1,22 +1,23 @@
 'use client'
-
 import { creatProduct } from '@/lib/actions/products';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+
 import { toast } from 'react-toastify';
+
 
 const AddProduct = () => {
     const router = useRouter()
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         const formData = new FormData(e.currentTarget)
         const productData = Object.fromEntries(formData.entries())
-    
+        console.log(productData)
 
-        const dataSubmit = {
-            name : productData.name,
+        const submitData = {
+            name: productData.name,
             category: productData.category,
             price: productData.price,
             discountPrice: productData.discountPrice,
@@ -27,17 +28,17 @@ const AddProduct = () => {
             status: 'active'
         }
 
+        const res = await creatProduct(submitData)
+        console.log(res)
 
-        const res = await creatProduct(dataSubmit)
-
-        if(res.insertedId){
+        if (res.insertedId) {
             e.target.reset()
-            router.push('/dashboard/seller')
-            
+            router.push('/dashboard/seller/products')
         }
-        else{
-            toast.error('Failed to add product')
+        else {
+            toast.error('Failed to added product')
         }
+
     }
 
     return (
@@ -50,7 +51,7 @@ const AddProduct = () => {
                     <p className="text-gray-500 mt-1">Fill in the details to add a new product to your store.</p>
                 </div>
                 <Link href="/dashboard/seller" className="text-blue-600 font-semibold hover:underline">
-                    ← Back to Dashboard
+                    Back to Dashboard
                 </Link>
             </div>
 
@@ -61,13 +62,8 @@ const AddProduct = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
-                        <input
-                            type="text"
-                            name="name"
-                            required
-                            placeholder="e.g. Premium Cotton T-Shirt"
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
+                        <input type="text" name="name" required placeholder="e.g. Premium Cotton T-Shirt"
+                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
@@ -89,22 +85,13 @@ const AddProduct = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Price (৳)</label>
-                        <input
-                            type="number"
-                            name="price"
-                            required
-                            placeholder="e.g. 500"
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
+                        <input type="number" name="price" required placeholder="e.g. 500"
+                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Discount Price </label>
-                        <input
-                            type="number"
-                            name="discountPrice"
-                            placeholder="e.g. 450"
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
+                        <input type="number" name="discountPrice" placeholder="e.g. 450"
+                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Stock Quantity</label>
