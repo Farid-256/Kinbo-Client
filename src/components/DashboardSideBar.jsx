@@ -1,10 +1,11 @@
-import { Bars, House, Box, CirclePlus } from "@gravity-ui/icons";
+import { Bars, House, Box, CirclePlus, ChartColumn } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import Link from "next/link";
 
 export function DashBoardSideBar() {
     const navItems = [
         { icon: House, href:'/dashboard/seller', label: "Home" },
+        { icon: ChartColumn, href:'/dashboard/seller/company', label: "Company" },
         { icon: Box, href:'/dashboard/seller/products', label: "Products" },
         { icon: CirclePlus, href:'/dashboard/seller/products/addProducts', label: "Add Products" },
     ]
