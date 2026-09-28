@@ -5,7 +5,7 @@ import Link from "next/link";
 export function DashBoardSideBar() {
     const navItems = [
         { icon: House, href:'/dashboard/seller', label: "Home" },
-        { icon: ChartColumn, href:'/dashboard/seller/company', label: "Company" },
+        { icon: ChartColumn, href:'/dashboard/seller/companyProfile', label: "Company" },
         { icon: Box, href:'/dashboard/seller/products', label: "Products" },
         { icon: CirclePlus, href:'/dashboard/seller/products/addProducts', label: "Add Products" },
     ]

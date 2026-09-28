@@ -11,3 +11,14 @@ export const creatProduct = async (newProduct) =>{
     })
     return res.json()
 }
+
+export const creatCompany = async (newCompany) =>{
+    const res = await fetch(`${baseUrl}/api/company`, {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(newCompany)
+    })
+    return res.json()
+}
