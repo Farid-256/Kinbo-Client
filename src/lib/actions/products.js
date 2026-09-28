@@ -13,7 +13,7 @@ export const creatProduct = async (newProduct) =>{
 }
 
 export const creatCompany = async (newCompany) =>{
-    const res = await fetch(`${baseUrl}/api/company`, {
+    const res = await fetch(`${baseUrl}/api/mYcompany`, {
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json'
