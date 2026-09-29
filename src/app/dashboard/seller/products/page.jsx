@@ -1,10 +1,38 @@
+'use client'
 import { getCompanyProducts } from "@/lib/api/products";
+import { useSession } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-const SellerProducts = async () => {
-    const companyId = 'company_123'
-    const products = await getCompanyProducts(companyId)
+const SellerProducts = () => {
+    const { data: session, isPending } = useSession()
+    const user = session?.user
+    const [products, setProducts] = useState([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        if (!user?.id) return
+
+        const fetchProducts = async () => {
+            const data = await getCompanyProducts(user.id)
+            setProducts(data)
+            setLoading(false)
+        }
+        fetchProducts()
+    }, [user?.id])
+
+    if (isPending) {
+        return <h3>Loading...</h3>
+    }
+
+    if (!user) {
+        return <h3>Please Login</h3>
+    }
+
+    if (loading) {
+        return <h3>Loading Products...</h3>
+    }
 
     return (
         <div className="p-6 max-w-7xl mx-auto">
@@ -86,10 +114,10 @@ const SellerProducts = async () => {
                                         <td className="px-6 py-4">
                                             <span
                                                 className={`px-3 py-1 rounded-full text-xs font-medium ${product.stock > 10
-                                                        ? "bg-green-100 text-green-700"
-                                                        : product.stock > 0
-                                                            ? "bg-yellow-100 text-yellow-700"
-                                                            : "bg-red-100 text-red-700"
+                                                    ? "bg-green-100 text-green-700"
+                                                    : product.stock > 0
+                                                        ? "bg-yellow-100 text-yellow-700"
+                                                        : "bg-red-100 text-red-700"
                                                     }`}
                                             >
                                                 {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
@@ -100,8 +128,8 @@ const SellerProducts = async () => {
                                         <td className="px-6 py-4">
                                             <span
                                                 className={`px-3 py-1 rounded-full text-xs font-medium ${product.status === 'active'
-                                                        ? "bg-blue-100 text-blue-700"
-                                                        : "bg-gray-100 text-gray-700"
+                                                    ? "bg-blue-100 text-blue-700"
+                                                    : "bg-gray-100 text-gray-700"
                                                     }`}
                                             >
                                                 {product.status || 'active'}

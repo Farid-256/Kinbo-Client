@@ -1,20 +1,21 @@
 'use client'
 import { creatProduct } from '@/lib/actions/products';
+import { useSession } from '@/lib/auth-client';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
 import { toast } from 'react-toastify';
 
 
 const AddProduct = () => {
     const router = useRouter()
+    const {data:session} = useSession()
+    const user = session?.user
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         const formData = new FormData(e.currentTarget)
         const productData = Object.fromEntries(formData.entries())
-        console.log(productData)
 
         const submitData = {
             name: productData.name,
@@ -24,12 +25,11 @@ const AddProduct = () => {
             stock: productData.stock,
             image: productData.image,
             description: productData.description,
-            company_id: 'company_123',
+            sellerId: user?.id,
             status: 'active'
         }
 
         const res = await creatProduct(submitData)
-        console.log(res)
 
         if (res.insertedId) {
             e.target.reset()
@@ -38,7 +38,6 @@ const AddProduct = () => {
         else {
             toast.error('Failed to added product')
         }
-
     }
 
     return (

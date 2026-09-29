@@ -1,6 +1,6 @@
 'use client'
 
-import { creatCompany, creatProduct } from '@/lib/actions/products';
+import { creatCompany } from '@/lib/actions/products';
 import { getSellerCompany } from '@/lib/api/products';
 import { useSession } from '@/lib/auth-client';
 import Image from 'next/image';
@@ -8,7 +8,6 @@ import Link from 'next/link';
 
 import { useEffect, useRef, useState } from 'react';
 import { FaCloudUploadAlt, FaPhone, FaSpinner } from 'react-icons/fa';
-import { IoMdArrowRoundBack } from 'react-icons/io';
 import { IoArrowBack, IoLocationSharp } from 'react-icons/io5';
 import { MdEdit } from 'react-icons/md';
 import { toast } from 'react-toastify';
@@ -102,7 +101,7 @@ const CompanyProfile = () => {
             description: companyData.description,
             image: imageUrl,
             status: 'pending',
-            sellerId: user.id
+            sellerId: user?.id
         }
 
         try {
@@ -171,7 +170,7 @@ const CompanyProfile = () => {
                     <div className="px-8">
                         <div className="w-36 h-36 rounded-full bg-white p-1.5 shadow-lg border-4 border-white -mt-14 relative z-10">
                             <Image
-                                src={company.image}
+                                src={company.image || '/assets/placeholder.png'}
                                 alt={company.companyName}
                                 width={112}
                                 height={112}
