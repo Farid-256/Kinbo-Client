@@ -86,9 +86,6 @@ const SellerProducts = () => {
                                                     <p className="font-semibold text-gray-800 line-clamp-1">
                                                         {product.name}
                                                     </p>
-                                                    <p className="text-xs text-gray-400 line-clamp-1">
-                                                        {product.description}
-                                                    </p>
                                                 </div>
                                             </div>
                                         </td>
@@ -113,14 +110,15 @@ const SellerProducts = () => {
                                         {/* Stock */}
                                         <td className="px-6 py-4">
                                             <span
-                                                className={`px-3 py-1 rounded-full text-xs font-medium ${product.stock > 10
+                                                className={`px-3 py-1 rounded-full text-xs 
+                                                    font-medium ${product.stock > 10
                                                     ? "bg-green-100 text-green-700"
                                                     : product.stock > 0
                                                         ? "bg-yellow-100 text-yellow-700"
                                                         : "bg-red-100 text-red-700"
                                                     }`}
                                             >
-                                                {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
+                                                {product.stock > 0 ? `${product.stock}` : "Out of stock"}
                                             </span>
                                         </td>
 

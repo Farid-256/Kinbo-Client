@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
                     <p className="text-xl font-bold text-blue-600">
                         {product.price} Taka                    </p>
 
-                    <Link href={`/product/${product._id}`}>
+                    <Link href={`/shop/${product._id}`}>
                         <button className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition cursor-pointer">
                             View
                         </button>
