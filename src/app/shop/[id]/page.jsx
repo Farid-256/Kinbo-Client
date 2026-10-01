@@ -94,9 +94,9 @@ const ProductDetails = async ({ params }) => {
                         <QuantitySelector></QuantitySelector>
                     }
                     <div className="flex justify-end">
-                            <button className="flex justify-center items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition shadow-md cursor-pointer">
+                            <Link href={``} className="flex justify-center items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition shadow-md cursor-pointer">
                                 <FaShoppingCart /> Add to Cart
-                            </button>
+                            </Link>
                         </div>
                     </div>
 
