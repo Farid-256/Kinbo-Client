@@ -1,3 +1,5 @@
+
+import AddToCartSection from "@/components/AddToCartSection";
 import QuantitySelector from "@/components/QuantitySelector";
 import Image from "next/image";
 import Link from "next/link";
@@ -89,16 +91,13 @@ const ProductDetails = async ({ params }) => {
                         </p>
                     </div>
 
-                    {/* Quantity + Buttons */}
-                    {
-                        <QuantitySelector></QuantitySelector>
-                    }
                     <div className="flex justify-end">
-                            <Link href={``} className="flex justify-center items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition shadow-md cursor-pointer">
-                                <FaShoppingCart /> Add to Cart
-                            </Link>
+                            
+                            <AddToCartSection product={product}></AddToCartSection>
                         </div>
                     </div>
+
+                    
 
                     {/* Trust Badges */}
                     <div className="grid grid-cols-3 gap-3 mt-8 pt-6 border-t border-gray-100">

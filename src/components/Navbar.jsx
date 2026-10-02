@@ -1,4 +1,5 @@
 'use client'
+import { useCart } from "@/context/CartContext";
 import { signOut, useSession } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,6 +17,8 @@ const Navbar = () => {
     const { data: session } = useSession()
     const user = session?.user
     const router = useRouter()
+    const { cart } = useCart()
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0)
 
     const handleClick = () => {
         setOpen(!open)
@@ -53,21 +56,21 @@ const Navbar = () => {
                 </div>
 
                 <div className="hidden md:flex items-center gap-10">
-                    <div className="flex flex-col items-center">
+                    <Link href='/cart' className="flex flex-col items-center">
 
                         <h3 className="text-2xl"><BsCart3 /></h3>
 
                         <div className="flex gap-1">
                             <h3 className="text-xl text-gray-500">My Cart</h3>
-                            <h4 className="text-green-500">(0)</h4>
+                            <h4 className="text-green-500">{totalItems}</h4>
                         </div>
-                    </div>
+                    </Link>
 
                     <div>
                         {
                             user ?
-                                <button onClick={handleSignOut} className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-800 hover:text-white">Log Out</button> : <Link href='/auth/login'>
-                                    <button className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-800 hover:text-white">Login</button>
+                                <button onClick={handleSignOut} className="px-8 py-2 bg-blue-800 font-bold text-yellow-200 cursor-pointer hover:bg-red-800 hover:text-white">Log Out</button> : <Link href='/auth/login'>
+                                    <button className="px-8 py-2 bg-blue-800 font-bold text-yellow-200 cursor-pointer hover:bg-red-800 hover:text-white">Login</button>
                                 </Link>
                         }
                     </div>
@@ -91,7 +94,7 @@ const Navbar = () => {
 
                         <div>
                             {
-                                user ? <button onClick={() => {handleSignOut(); closeMenu();}} className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-800 hover:text-white">Log Out</button> : <Link href='/auth/login'>
+                                user ? <button onClick={() => { handleSignOut(); closeMenu(); }} className="px-8 py-2 bg-blue-800 font-bold text-yellow-200 cursor-pointer hover:bg-red-800 hover:text-white">Log Out</button> : <Link href='/auth/login'>
                                     <button onClick={closeMenu} className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-800 hover:text-white">Login</button>
                                 </Link>
                             }
