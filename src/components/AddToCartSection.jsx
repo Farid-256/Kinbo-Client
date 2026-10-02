@@ -9,8 +9,8 @@ const AddToCartSection = ({ product }) => {
     const [quantity, setQuantity] = useState(1)
     const { addToCart } = useCart()
 
-    const handleAdd = () => {
-        addToCart(product, quantity)
+    const handleAdd = async() => {
+        await addToCart(product, quantity)
         toast.success('Added to cart!')
     }
 
