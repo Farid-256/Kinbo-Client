@@ -21,14 +21,7 @@ export const CartProvider = ({ children }) => {
         }
         loadCart()
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user?.id])
-
-
-
-
-
-
 
     const addToCart = async (product, quantity) => {
         if (!user?.id) return
