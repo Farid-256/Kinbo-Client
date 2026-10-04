@@ -15,6 +15,7 @@ const sellerManu = [
     { icon: Box, href: '/dashboard/seller/products', label: "Products" },
     { icon: CirclePlus, href: '/dashboard/seller/products/addProducts', label: "Add Products" },
     { icon: TagDollar, href: '/dashboard/seller/orders', label: "Orders" },
+    { icon: Box, href: '/dashboard/customer/orders', label: "My Orders" },
 ]
 const customerManu = [
     { icon: House, href: '/dashboard/customer/customerProfile', label: "Profile" },

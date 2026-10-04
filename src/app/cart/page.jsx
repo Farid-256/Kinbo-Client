@@ -66,9 +66,13 @@ const Cart = () => {
                                 <span className="text-blue-600">{subtotal} Taka</span>
                             </div>
                         </div>
-                        <button className="w-full mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition shadow-md cursor-pointer">
-                            Buy Now
-                        </button>
+
+                        <Link href='/checkout'>
+                            <button className="w-full mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition shadow-md cursor-pointer">
+                                Buy Now
+                            </button>
+                        </Link>
+
                     </div>
                 </div>
             </div>

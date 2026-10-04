@@ -16,3 +16,8 @@ export const getSellerCompany = async (sellerId) =>{
     const res = await fetch(`${baseUrl}/api/my-company?sellerId=${sellerId}`)
     return res.json()
 }
+
+export const getUserOrder = async (userId) =>{
+    const res = await fetch(`${baseUrl}/api/orders?userId=${userId}`)
+    return res.json()
+}
