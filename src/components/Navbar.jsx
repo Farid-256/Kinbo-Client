@@ -48,8 +48,6 @@ const Navbar = () => {
                 <div className="hidden md:flex gap-5">
                     <Link href='/' className={`text-xl ${pathName === '/' ? 'font-bold text-blue-500' : 'text-xl text-gray-500'}`}>Home</Link>
 
-                    <Link href='/shop' className={`text-xl ${pathName === '/shop' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>Shop</Link>
-
                     <Link href='/about' className={`text-xl ${pathName === '/about' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>About</Link>
 
                     <Link href='/dashboard/seller' className={`text-xl ${pathName === '/dashboard/seller' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>Dashboard</Link>
