@@ -20,9 +20,9 @@ const AddProduct = () => {
         const submitData = {
             name: productData.name,
             category: productData.category,
-            price: productData.price,
-            discountPrice: productData.discountPrice,
-            stock: productData.stock,
+            price: Number(productData.price),
+            discountPrice: Number(productData.discountPrice) || 0,
+            stock: Number(productData.stock),
             image: productData.image,
             description: productData.description,
             sellerId: user?.id,
