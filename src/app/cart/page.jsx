@@ -14,7 +14,7 @@ const Cart = () => {
         return (
             <div className="max-w-7xl mx-auto p-6 text-center py-20">
                 <h1 className="text-2xl font-bold text-gray-800 mb-4">Your Cart is Empty</h1>
-                <Link href="/shop" className="text-blue-600 hover:underline">
+                <Link href="/" className="text-blue-600 hover:underline">
                     Continue Shopping
                 </Link>
             </div>
@@ -23,7 +23,7 @@ const Cart = () => {
 
     return (
         <div className="max-w-7xl mx-auto p-6">
-            <Link href="/shop" className="inline-flex items-center gap-2 text-blue-600 hover:underline mb-6">
+            <Link href="/" className="inline-flex items-center gap-2 text-blue-600 hover:underline mb-6">
                 <FaArrowLeft /> Back to Shop
             </Link>
 
