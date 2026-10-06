@@ -6,11 +6,13 @@ import { useEffect } from "react";
 
 
 const DashboardRedirect = () => {
-    const {data: session} = useSession()
+    const {data: session, isPending} = useSession()
     const user = session?.user
     const router = useRouter()
 
     useEffect(() =>{
+        if(isPending) return
+
         if(!user){
             router.push('/auth/login')
             return
@@ -18,13 +20,13 @@ const DashboardRedirect = () => {
         if(user.role === 'admin'){
             router.push('/dashboard/admin')
         }
-        if(user.role === 'business'){
+        else if(user.role === 'business'){
             router.push('/dashboard/seller')
         }
         else{
             router.push('/dashboard/customer')
         }
-    }, [user, router])
+    }, [user, router, isPending])
     return (
         <div>
             <h2 className="text-center py-20">Redirecting...</h2>

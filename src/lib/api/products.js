@@ -21,3 +21,13 @@ export const getUserOrder = async (userId) =>{
     const res = await fetch(`${baseUrl}/api/orders?userId=${userId}`)
     return res.json()
 }
+
+export const getSellerOrders = async(sellerId) =>{
+    const res = await fetch(`${baseUrl}/api/orders?sellerId=${sellerId}`)
+    return res.json()
+}
+
+export const getAllOrders = async() =>{
+    const res = await fetch(`${baseUrl}/api/orders`)
+    return res.json()
+}

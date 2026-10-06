@@ -6,12 +6,12 @@ import { FaMinus, FaPlus, FaShoppingCart } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import { useSession } from '@/lib/auth-client'
 
+
 const AddToCartSection = ({ product }) => {
     const [quantity, setQuantity] = useState(1)
     const { addToCart } = useCart()
     const { data: session } = useSession()
     const user = session?.user
-    console.log('user data', user)
 
     const isOwner = user?.id === product.sellerId
 
@@ -27,7 +27,6 @@ const AddToCartSection = ({ product }) => {
             </div>
         )
     }
-
 
     const handleAdd = async () => {
         await addToCart(product, quantity)

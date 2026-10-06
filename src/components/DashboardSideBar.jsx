@@ -6,7 +6,7 @@ import Link from "next/link";
 
 
 const adminManu = [
-    { icon: ChartColumn, href: '/dashboard/admin/adminProfele', label: "Admin Profile" },
+    { icon: ChartColumn, href: '/dashboard/admin', label: "Orders" },
     { icon: Box, href: '/dashboard/admin/order', label: "Products" },
     { icon: CirclePlus, href: '/dashboard/seller/products/addProducts', label: "Add Products" },
 ]
@@ -17,6 +17,7 @@ const sellerManu = [
     { icon: TagDollar, href: '/dashboard/seller/orders', label: "Orders" },
     { icon: Box, href: '/dashboard/customer/orders', label: "My Orders" },
 ]
+
 const customerManu = [
     { icon: House, href: '/dashboard/customer/customerProfile', label: "Profile" },
     { icon: ChartColumn, href: '/dashboard/customer/order', label: "Order" },
