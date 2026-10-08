@@ -19,7 +19,6 @@ const Register = () => {
         const { data, error } = await authClient.signUp.email({
             name: userData.name,
             email: userData.email,
-            role: userData.role,
             password: userData.password
         })
 
@@ -62,16 +61,6 @@ const Register = () => {
                             placeholder="e.g. farid@example.com"
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
-                    </div>
-
-                    {/* Role */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Account Type</label>
-                        <select name="role" required defaultValue="customer"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
-                            <option value="customer">Customer (Buy Products)</option>
-                            <option value="business">Business (Sell Products)</option>
-                        </select>
                     </div>
 
                     {/* Password */}

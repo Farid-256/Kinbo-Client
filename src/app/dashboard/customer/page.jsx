@@ -13,6 +13,7 @@ const CustomerPage = () => {
     const user = session?.user
     const [order, setOrder] = useState([])
     const [loading, setLoading] = useState(true)
+    
     useEffect(() => {
         if (isPending) return
         if (!user) {

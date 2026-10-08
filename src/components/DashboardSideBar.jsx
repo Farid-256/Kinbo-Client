@@ -1,6 +1,6 @@
 'use client'
 import { useSession } from "@/lib/auth-client";
-import { Bars, House, Box, CirclePlus, ChartColumn, TagDollar } from "@gravity-ui/icons";
+import { Bars, House, Box, CirclePlus, ChartColumn, TagDollar, DatabaseMagnifier, Factory  } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import Link from "next/link";
 
@@ -9,6 +9,7 @@ const adminManu = [
     { icon: ChartColumn, href: '/dashboard/admin', label: "Orders" },
     { icon: Box, href: '/dashboard/admin/order', label: "Products" },
     { icon: CirclePlus, href: '/dashboard/seller/products/addProducts', label: "Add Products" },
+    { icon: Factory, href: '/dashboard/admin/seller-requests', label: "Seller Requests" },
 ]
 const sellerManu = [
     { icon: ChartColumn, href: '/dashboard/seller', label: "Company Profile" },
@@ -20,7 +21,7 @@ const sellerManu = [
 
 const customerManu = [
     { icon: House, href: '/dashboard/customer', label: "Profile" },
-    { icon: ChartColumn, href: '/dashboard/customer/order', label: "Order" },
+    { icon: DatabaseMagnifier, href: '/dashboard/customer/becomeASeller', label: "Become a Seller" },
 ]
 
 

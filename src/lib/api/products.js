@@ -42,3 +42,17 @@ export const updateOrderStatus = async (orderId, status) => {
     })
     return res.json()
 }
+
+export const getAllSellerRequests = async () => {
+    const res = await fetch(`${baseUrl}/api/seller-requests`)
+    return res.json()
+}
+
+export const updateSellerRequest = async (requestId, status) => {
+    const res = await fetch(`${baseUrl}/api/seller-requests/${requestId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
+    })
+    return res.json()
+}
