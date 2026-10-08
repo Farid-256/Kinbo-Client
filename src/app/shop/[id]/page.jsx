@@ -1,9 +1,9 @@
 
 import AddToCartSection from "@/components/AddToCartSection";
-import QuantitySelector from "@/components/QuantitySelector";
+import { getSellerCompany } from "@/lib/api/products";
 import Image from "next/image";
 import Link from "next/link";
-import { FaShoppingCart, FaHeart, FaTruck, FaShieldAlt, FaUndoAlt } from "react-icons/fa";
+import { FaHeart, FaTruck, FaShieldAlt, FaUndoAlt } from "react-icons/fa";
 import { IoArrowBack } from "react-icons/io5";
 
 const ProductDetails = async ({ params }) => {
@@ -11,6 +11,8 @@ const ProductDetails = async ({ params }) => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     const res = await fetch(`${baseUrl}/api/products/${id}`)
     const product = await res.json()
+
+    const company = await getSellerCompany(product.sellerId)
 
     return (
         <div className="max-w-7xl mx-auto p-6">
@@ -37,7 +39,7 @@ const ProductDetails = async ({ params }) => {
 
                     {/* Category Badge */}
                     <span className="absolute top-4 left-4 bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full uppercase tracking-wide">
-                        {product.category}
+                        {company?.companyName}
                     </span>
 
                     {/* Wishlist Icon */}
@@ -59,11 +61,6 @@ const ProductDetails = async ({ params }) => {
                         <span className="text-4xl font-bold text-blue-600">
                             {product.price} Taka
                         </span>
-                        {product.discountPrice && (
-                            <span className="text-xl text-gray-400 line-through mb-1">
-                                {product.discountPrice} Taka
-                            </span>
-                        )}
                     </div>
 
                     {/* Stock */}

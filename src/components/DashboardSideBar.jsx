@@ -19,7 +19,7 @@ const sellerManu = [
 ]
 
 const customerManu = [
-    { icon: House, href: '/dashboard/customer/customerProfile', label: "Profile" },
+    { icon: House, href: '/dashboard/customer', label: "Profile" },
     { icon: ChartColumn, href: '/dashboard/customer/order', label: "Order" },
 ]
 
