@@ -1,11 +1,11 @@
 'use client'
 
-import { useSession } from '@/lib/auth-client'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
 import { FaStore, FaPhone, FaCheckCircle, FaArrowLeft } from 'react-icons/fa'
 import Link from 'next/link'
+import { useSession } from '@/lib/auth-client'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 const BecomeSeller = () => {
     const { data: session, isPending } = useSession()
@@ -13,27 +13,15 @@ const BecomeSeller = () => {
     const router = useRouter()
     const [submitting, setSubmitting] = useState(false)
     const [alreadyRequested, setAlreadyRequested] = useState(false)
-
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
-    // Role check customer
-    useEffect(() => {
-        if (isPending) return
-        if (!user) router.push('/auth/login')
-        else if (user.role !== 'customer') router.push('/dashboard')
-    }, [user, isPending, router])
-
-    // Check if a request has already been submitted
     useEffect(() => {
         if (!user?.id) return
-
         const checkRequest = async () => {
             try {
                 const res = await fetch(`${baseUrl}/api/seller-requests/check?userId=${user.id}`)
                 const data = await res.json()
-                if (data && data.status) {
-                    setAlreadyRequested(data.status)
-                }
+                if (data?.status) setAlreadyRequested(data.status)
             } catch (error) {
                 console.error(error)
             }
@@ -43,46 +31,38 @@ const BecomeSeller = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setSubmitting(true)
 
-        const formData = new FormData(e.currentTarget)
+        const userData = new FormData(e.currentTarget)
+        const formData = Object.fromEntries(userData.entries())
+
         const requestData = {
             userId: user.id,
             userName: user.name,
             userEmail: user.email,
-            phone: formData.get('phone'),
-            interested: true,
+            phone: formData.phone,
             status: 'pending',
-            createdAt: new Date()
+            creatAt: new Date()
         }
 
-        try {
-            const res = await fetch(`${baseUrl}/api/seller-requests`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(requestData)
-            })
-            const result = await res.json()
+        const res = await fetch(`${baseUrl}/api/seller-requests`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
 
-            if (result.insertedId) {
-                toast.success('Request submitted successfully!')
-                setAlreadyRequested('pending')
-            } else {
-                toast.error('Failed to submit request')
-            }
-        } catch (error) {
-            console.error(error)
-            toast.error('Something went wrong')
-        } finally {
-            setSubmitting(false)
+        })
+        const result = await res.json()
+
+        if (result.insertedId) {
+            toast.success('Request submitted!')
+            e.target.reset()
+        }
+        else {
+            toast.error('Failed to submit')
         }
     }
 
-    if (isPending) {
-        return <h3 className="text-center py-20 text-gray-500">Loading...</h3>
-    }
-
-    if (!user) return null
 
     return (
         <div className="p-6 max-w-3xl mx-auto">
@@ -159,8 +139,8 @@ const BecomeSeller = () => {
                         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
                             Your Info
                         </p>
-                        <p className="text-gray-800 font-medium">{user.name}</p>
-                        <p className="text-sm text-gray-500">{user.email}</p>
+                        <p className="text-gray-800 font-medium">{user?.name}</p>
+                        <p className="text-sm text-gray-500">{user?.email}</p>
                     </div>
 
                     {/* Phone */}

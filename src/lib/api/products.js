@@ -43,7 +43,7 @@ export const updateOrderStatus = async (orderId, status) => {
     return res.json()
 }
 
-export const getAllSellerRequests = async () => {
+export const getAllSellerRequest = async () =>{
     const res = await fetch(`${baseUrl}/api/seller-requests`)
     return res.json()
 }

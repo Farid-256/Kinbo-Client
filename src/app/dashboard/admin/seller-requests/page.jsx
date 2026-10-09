@@ -4,7 +4,7 @@ import { useSession } from '@/lib/auth-client'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { getAllSellerRequests, updateSellerRequest } from '@/lib/api/products'
+import { getAllSellerRequest, updateSellerRequest } from '@/lib/api/products'
 import { FaUser, FaPhone, FaEnvelope, FaCheck, FaTimes, FaStore } from 'react-icons/fa'
 
 const SellerRequests = () => {
@@ -24,19 +24,14 @@ const SellerRequests = () => {
     // Fetch requests
     useEffect(() => {
         if (!user || user.role !== 'admin') return
-
-        const fetchRequests = async () => {
-            try {
-                const data = await getAllSellerRequests()
-                setRequests(data || [])
-            } catch (error) {
-                console.error(error)
-            } finally {
-                setLoading(false)
-            }
+        const fetchUser = async () => {
+            const res = await getAllSellerRequest()
+            setRequests(res)
+            setLoading(false)
         }
-        fetchRequests()
+        fetchUser()
     }, [user])
+
 
     // Approve / Reject handler
     const handleStatusChange = async (requestId, newStatus) => {
@@ -139,7 +134,7 @@ const SellerRequests = () => {
                                                 href={`tel:${req.phone}`}
                                                 className="text-xs text-blue-600 hover:underline mt-1 inline-block"
                                             >
-                                                📞 Call Now
+                                                Call Now
                                             </a>
                                         </div>
                                     </div>
