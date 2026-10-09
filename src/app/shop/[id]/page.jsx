@@ -18,7 +18,7 @@ const ProductDetails = async ({ params }) => {
         <div className="max-w-7xl mx-auto p-6">
 
             {/* Back Link */}
-            <Link href="/shop" className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:underline mb-6">
+            <Link href="/" className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:underline mb-6">
                 <IoArrowBack />
                 Back to Shop
             </Link>
@@ -48,7 +48,7 @@ const ProductDetails = async ({ params }) => {
                     </button>
                 </div>
 
-                {/* 📝 Right: Product Info */}
+                {/* Right: Product Info */}
                 <div className="flex flex-col">
 
                     {/* Title */}

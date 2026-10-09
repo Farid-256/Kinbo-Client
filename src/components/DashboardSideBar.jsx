@@ -7,8 +7,8 @@ import Link from "next/link";
 
 const adminManu = [
     { icon: ChartColumn, href: '/dashboard/admin', label: "Orders" },
-    { icon: Box, href: '/dashboard/admin/order', label: "Products" },
-    { icon: CirclePlus, href: '/dashboard/seller/products/addProducts', label: "Add Products" },
+    // { icon: Box, href: '/dashboard/admin/order', label: "Products" },
+    // { icon: CirclePlus, href: '/dashboard/seller/products/addProducts', label: "Add Products" },
     { icon: Factory, href: '/dashboard/admin/seller-requests', label: "Seller Requests" },
 ]
 const sellerManu = [
