@@ -38,12 +38,12 @@ export const updateOrderStatus = async (orderId, status) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({status})
+        body: JSON.stringify({ status })
     })
     return res.json()
 }
 
-export const getAllSellerRequest = async () =>{
+export const getAllSellerRequest = async () => {
     const res = await fetch(`${baseUrl}/api/seller-requests`)
     return res.json()
 }
@@ -54,5 +54,19 @@ export const updateSellerRequest = async (requestId, status) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status })
     })
+    return res.json()
+}
+
+export const saveBanner = async (bannerData) => {
+    const res = await fetch(`${baseUrl}/api/banner`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bannerData)
+    })
+    return res.json()
+}
+
+export const getBanner = async () => {
+    const res = await fetch(`${baseUrl}/api/banner`)
     return res.json()
 }
