@@ -41,11 +41,6 @@ const ProductDetails = async ({ params }) => {
                     <span className="absolute top-4 left-4 bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full uppercase tracking-wide">
                         {company?.companyName}
                     </span>
-
-                    {/* Wishlist Icon */}
-                    <button className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-gray-500 hover:text-red-500 transition cursor-pointer">
-                        <FaHeart />
-                    </button>
                 </div>
 
                 {/* Right: Product Info */}

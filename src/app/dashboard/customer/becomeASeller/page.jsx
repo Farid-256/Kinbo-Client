@@ -41,7 +41,7 @@ const BecomeSeller = () => {
             userEmail: user.email,
             phone: formData.phone,
             status: 'pending',
-            creatAt: new Date()
+            createdAt: new Date()
         }
 
         const res = await fetch(`${baseUrl}/api/seller-requests`, {
