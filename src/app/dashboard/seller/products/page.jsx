@@ -1,9 +1,10 @@
 'use client'
-import { getCompanyProducts } from "@/lib/api/products";
+import { deleteProduct, getCompanyProducts } from "@/lib/api/products";
 import { useSession } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const SellerProducts = () => {
     const { data: session, isPending } = useSession()
@@ -32,6 +33,25 @@ const SellerProducts = () => {
 
     if (loading) {
         return <h3>Loading Products...</h3>
+    }
+
+    const handleDelete = async (productId) => {
+        const confirmDelete = window.confirm('Are you sure you want to delete this product?')
+        if (!confirmDelete) return
+
+        try {
+            const result = await deleteProduct(productId)
+            if (result.deletedCount > 0) {
+                setProducts(products.filter(p => p._id !== productId))
+                toast.success('Product deleted successfully!')
+            } else {
+                toast.error('Failed to delete product')
+            }
+        } catch (error) {
+            console.error(error)
+            toast.error('Something went wrong')
+        }
+
     }
 
     return (
@@ -112,10 +132,10 @@ const SellerProducts = () => {
                                             <span
                                                 className={`px-3 py-1 rounded-full text-xs 
                                                     font-medium ${product.stock > 10
-                                                    ? "bg-green-100 text-green-700"
-                                                    : product.stock > 0
-                                                        ? "bg-yellow-100 text-yellow-700"
-                                                        : "bg-red-100 text-red-700"
+                                                        ? "bg-green-100 text-green-700"
+                                                        : product.stock > 0
+                                                            ? "bg-yellow-100 text-yellow-700"
+                                                            : "bg-red-100 text-red-700"
                                                     }`}
                                             >
                                                 {product.stock > 0 ? `${product.stock}` : "Out of stock"}
@@ -137,18 +157,12 @@ const SellerProducts = () => {
                                         <td className="px-6 py-4">
                                             <div className="flex justify-end gap-2">
                                                 {/* Edit Button */}
-                                                <Link
-                                                    href={`/dashboard/seller/products/edit/${product._id}`}
-                                                    className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 font-medium rounded-lg transition text-xs"
-                                                >
-                                                    Edit
+                                                <Link href={`/dashboard/seller/products/edit/${product._id}`} className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 font-medium rounded-lg transition text-xs"> Edit
                                                 </Link>
 
                                                 {/* Delete Button */}
-                                                <button
-                                                    type="button"
-                                                    className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 font-medium rounded-lg transition text-xs cursor-pointer"
-                                                >
+                                                <button onClick={() => handleDelete(product._id)} type="button" className="px-3 py-1.5 bg-red-50 hover:bg-red-100
+                                                text-red-600 font-medium rounded-lg transition text-xs cursor-pointer">
                                                     Delete
                                                 </button>
                                             </div>

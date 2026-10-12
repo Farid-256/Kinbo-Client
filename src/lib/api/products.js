@@ -70,3 +70,10 @@ export const getBanner = async () => {
     const res = await fetch(`${baseUrl}/api/banner`)
     return res.json()
 }
+
+export const deleteProduct = async (productId) => {
+    const res = await fetch(`${baseUrl}/api/product/${productId}`, {
+        method: 'DELETE'
+    })
+    return res.json()
+}
