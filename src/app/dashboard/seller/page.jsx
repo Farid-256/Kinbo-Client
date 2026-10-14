@@ -116,7 +116,6 @@ const CompanyProfile = () => {
             phone: companyData.phone,
             description: companyData.description,
             image: imageUrl,
-            status: 'pending',
             sellerId: user?.id
         }
 

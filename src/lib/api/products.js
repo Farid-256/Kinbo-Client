@@ -91,3 +91,19 @@ export const clearUserCart = async(userId) =>{
     })
     return res.json()
 }
+
+export const getProductById = async(productId) =>{
+    const res = await fetch(`${baseUrl}/api/products/${productId}`)
+    return res.json()
+}
+
+export const updateProduct = async(productId, updateProduct) =>{
+    const res = await fetch(`${baseUrl}/api/products/${productId}`,{
+        method: 'PATCH',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(updateProduct)
+    })
+    return res.json()
+}
