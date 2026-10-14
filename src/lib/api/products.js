@@ -107,3 +107,15 @@ export const updateProduct = async(productId, updateProduct) =>{
     })
     return res.json()
 }
+
+export const getAllCompanies = async() =>{
+    const res = await fetch(`${baseUrl}/api/companies`)
+    return res.json()
+}
+
+export const deleteCompany = async(companyId) =>{
+    const res = await fetch(`${baseUrl}/api/companies/${companyId}`,{
+        method: 'DELETE'
+    })
+    return res.json()
+}

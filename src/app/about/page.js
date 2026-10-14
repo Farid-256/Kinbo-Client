@@ -169,12 +169,6 @@ const AboutPage = () => {
                         >
                             Browse Products
                         </Link>
-                        <Link
-                            href="/dashboard/customer/becomeASeller"
-                            className="px-8 py-3 bg-white hover:bg-gray-100 text-blue-600 font-bold rounded-lg border-2 border-blue-600 transition"
-                        >
-                            Become a Seller
-                        </Link>
                     </div>
                 </div>
             </section>

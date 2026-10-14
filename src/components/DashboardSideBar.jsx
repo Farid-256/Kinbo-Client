@@ -1,6 +1,6 @@
 'use client'
 import { useSession } from "@/lib/auth-client";
-import { Bars, House, Box, CirclePlus, ChartColumn,CopyPicture, TagDollar, DatabaseMagnifier, Factory  } from "@gravity-ui/icons";
+import { Bars, House, Box, CirclePlus, ChartColumn,CurlyBracketsLock, CopyPicture, TagDollar, DatabaseMagnifier, Factory } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import Link from "next/link";
 
@@ -8,6 +8,7 @@ import Link from "next/link";
 const adminManu = [
     { icon: ChartColumn, href: '/dashboard/admin', label: "Orders" },
     { icon: Factory, href: '/dashboard/admin/seller-requests', label: "Seller Requests" },
+    { icon: CurlyBracketsLock, href: '/dashboard/admin/companies', label: "All Companies" },
     { icon: CopyPicture, href: '/dashboard/admin/set-Bannar', label: "Set Bannar" },
 ]
 const sellerManu = [
@@ -32,7 +33,7 @@ export function DashBoardSideBar() {
 
     let navItems = []
     if (role === 'admin') {
-       navItems = adminManu
+        navItems = adminManu
     }
     else if (role === 'business') {
         navItems = sellerManu
