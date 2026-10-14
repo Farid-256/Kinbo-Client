@@ -1,6 +1,6 @@
 'use client'
 
-import { deleteCart } from '@/lib/api/products'
+import { clearUserCart, deleteCart } from '@/lib/api/products'
 import { useSession } from '@/lib/auth-client'
 import { createContext, useContext, useEffect, useState } from 'react'
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
@@ -49,6 +49,12 @@ export const CartProvider = ({ children }) => {
         setCart(data)
     }
 
+    const clearCart = async () => {
+        if (!user?.id) return
+        await clearUserCart(user.id)
+        setCart([])
+    }
+
     const removeFromCart = async (cartItemId) => {
         try {
             const result = await deleteCart(cartItemId)
@@ -65,7 +71,7 @@ export const CartProvider = ({ children }) => {
     }
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+        <CartContext.Provider value={{ cart, addToCart, clearCart, removeFromCart }}>
             {children}
         </CartContext.Provider>
     )

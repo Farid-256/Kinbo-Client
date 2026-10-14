@@ -11,7 +11,7 @@ const Checkout = () => {
     const { data: session, isPending } = useSession()
     const user = session?.user
     const router = useRouter()
-    const { cart } = useCart()
+    const { cart, clearCart} = useCart()
     const [submitting, setSubmitting] = useState(false)
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
@@ -56,6 +56,7 @@ const Checkout = () => {
             const result = await res.json()
 
             if (result.insertedId) {
+                await clearCart()
                 toast.success('Order placed successfully')
                 router.push('/order-success')
             } else {

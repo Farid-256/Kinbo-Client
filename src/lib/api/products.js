@@ -84,3 +84,10 @@ export const deleteCart = async(cartItemId) =>{
     })
     return res.json()
 }
+
+export const clearUserCart = async(userId) =>{
+    const res = await fetch(`${baseUrl}/api/cart/user/${userId}`,{
+        method: 'DELETE'
+    })
+    return res.json()
+}
