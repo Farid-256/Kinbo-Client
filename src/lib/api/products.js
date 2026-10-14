@@ -77,3 +77,10 @@ export const deleteProduct = async (productId) => {
     })
     return res.json()
 }
+
+export const deleteCart = async(cartItemId) =>{
+    const res = await fetch(`${baseUrl}/api/cart/${cartItemId}`,{
+        method: 'DELETE',
+    })
+    return res.json()
+}

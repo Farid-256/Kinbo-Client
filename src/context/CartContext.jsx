@@ -1,5 +1,6 @@
 'use client'
 
+import { deleteCart } from '@/lib/api/products'
 import { useSession } from '@/lib/auth-client'
 import { createContext, useContext, useEffect, useState } from 'react'
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
@@ -38,7 +39,7 @@ export const CartProvider = ({ children }) => {
         await fetch(`${baseUrl}/api/cart`, {
             method: 'POST',
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(cartItem)
         })
@@ -48,8 +49,19 @@ export const CartProvider = ({ children }) => {
         setCart(data)
     }
 
-     const removeFromCart = (id) => {
-        setCart(cart.filter(item => item._id !== id))
+    const removeFromCart = async (cartItemId) => {
+        try {
+            const result = await deleteCart(cartItemId)
+
+            if (result.deletedCount > 0) {
+                setCart(cart.filter(item => item._id !== cartItemId))
+            }
+            else {
+                console.error('Failed to delete cart item')
+            }
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     return (

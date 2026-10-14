@@ -4,11 +4,25 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FaTrash, FaArrowLeft } from 'react-icons/fa'
 import { useCart } from '@/context/CartContext'
+import { toast } from 'react-toastify'
 
 const Cart = () => {
     const { cart, removeFromCart } = useCart()
 
     const subtotal = cart.reduce((total, item) => total + item.price * item.quantity, 0)
+
+    const handleRemove = async (cartItemId) => {
+        const confirmRemove = window.confirm('Remove this item from cart?')
+        if (!confirmRemove) return
+
+        try{
+            await removeFromCart(cartItemId)
+            toast.success('Item removed from cart')
+        }catch(error){
+            console.error(error)
+            toast.error('Failed to remove item')
+        }
+    }
 
     if (cart.length === 0) {
         return (
@@ -45,7 +59,7 @@ const Cart = () => {
                                 <p className="font-bold text-gray-800">{item.price * item.quantity} Taka</p>
                             </div>
                             <button
-                                onClick={() => removeFromCart(item._id)}
+                                onClick={() => handleRemove(item._id)}
                                 className="text-red-500 hover:text-red-700 p-2 cursor-pointer">
                                 <FaTrash />
                             </button>
