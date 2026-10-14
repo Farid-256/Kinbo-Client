@@ -23,10 +23,10 @@ const CompanyProfile = () => {
     const [loading, setLoading] = useState(true)
     const [editing, setEditing] = useState(false)
     const router = useRouter()
-    
+
 
     useEffect(() => {
-        if(isPending) return
+        if (isPending) return
         if (!user) {
             router.push('/auth/login')
         }
@@ -34,7 +34,7 @@ const CompanyProfile = () => {
             router.push('/dashboard')
         }
     }, [user, router, isPending])
-    
+
 
     useEffect(() => {
         if (!user?.id) {
@@ -121,33 +121,39 @@ const CompanyProfile = () => {
 
         try {
             const result = await creatCompany(dataSubmit)
-            if (result.insertedId) {
-                toast.success('Profile Created Successfully')
-                e.target.reset()
-                setImagePreview(null)
-                setImageUrl('')
+
+            if (result.acknowledged) {
+                toast.success(company ? 'Profile Updated Successfully' : 'Profile Created Successfully')
                 setCompany(dataSubmit)
+                setEditing(false)
+
             }
             else {
-                toast.error('Profile not created')
+                toast.error('Profile not saved')
             }
         }
-        catch {
-            toast.error('Some thing went wrong')
+        catch (error) {
+            console.error(error)
+            toast.error('Something went wrong')
         }
     }
 
     const handleCancel = () => {
         setEditing(false)
-        setImagePreview(null)
-        setImageUrl('')
+        if (company?.image) {
+            setImagePreview(company.image)
+            setImageUrl(company.image)
+        } else {
+            setImagePreview(null)
+            setImageUrl('')
+        }
     }
 
     if (loading || isPending) {
-    return <h3 className='text-7xl text-blue-500 font-medium text-center py-20'>
-        Loading...
-    </h3>
-}
+        return <h3 className='text-7xl text-blue-500 font-medium text-center py-20'>
+            Loading...
+        </h3>
+    }
 
     if (!user?.id) {
         return <h3>Please Login First</h3>
@@ -265,14 +271,13 @@ const CompanyProfile = () => {
             <form onSubmit={handleSubmit} className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 space-y-6">
 
                 {/* Company Logo Upload */}
-                {/* Image Upload */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                         Company Logo <span className="text-red-500">*</span>
                     </label>
                     <div
                         className={`border-2 border-dashed rounded-lg p-6 text-center transition cursor-pointer
-            ${imagePreview ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-blue-500'}`}
+    ${imagePreview ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-blue-500'}`}
                         onClick={() => fileInputRef.current?.click()}>
                         <input
                             type="file"
@@ -316,6 +321,7 @@ const CompanyProfile = () => {
                         <input
                             type="text"
                             name="companyName"
+                            defaultValue={company?.companyName || ''}    // 👈
                             required
                             placeholder="e.g. Kinbo Enterprise"
                             className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -325,6 +331,7 @@ const CompanyProfile = () => {
                         <label className="block text-sm font-medium text-gray-700 mb-1">Industry / Category</label>
                         <select
                             name="industry"
+                            defaultValue={company?.industry || ''}
                             required
                             className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
                             <option value="">Select Industry</option>
@@ -346,6 +353,7 @@ const CompanyProfile = () => {
                         <input
                             type="text"
                             name="location"
+                            defaultValue={company?.location || ''}
                             required
                             placeholder="e.g. Bogura Sadar, Bogura"
                             className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -356,6 +364,7 @@ const CompanyProfile = () => {
                         <input
                             type="tel"
                             name="phone"
+                            defaultValue={company?.phone || ''}
                             placeholder="e.g. +8801XXXXXXXXX"
                             className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
@@ -367,6 +376,7 @@ const CompanyProfile = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-1">Company Description</label>
                     <textarea
                         name="description"
+                        defaultValue={company?.description || ''} 
                         required
                         rows="5"
                         placeholder="Write about your company"
@@ -380,7 +390,7 @@ const CompanyProfile = () => {
                         type="submit"
                         className="w-full md:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition shadow-md cursor-pointer"
                     >
-                        Save Profile
+                        {company ? 'Update Profile' : 'Save Profile'}
                     </button>
                     <button
                         onClick={handleCancel}
