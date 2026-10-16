@@ -68,6 +68,13 @@ const AddProduct = () => {
         const formData = new FormData(e.currentTarget)
         const productData = Object.fromEntries(formData.entries())
 
+        const variantOptions = productData.variantOptions
+            ? productData.variantOptions
+                .split(',')
+                .map(opt => opt.trim())
+                .filter(opt => opt !== '')
+            : []
+
         const submitData = {
             name: productData.name,
             category: productData.category,
@@ -76,6 +83,8 @@ const AddProduct = () => {
             stock: Number(productData.stock),
             image: imageUrl,
             description: productData.description,
+            variantName: productData.variantName || '',
+            variantOptions: variantOptions,
             sellerId: user?.id,
             status: 'active'
         }
@@ -205,6 +214,38 @@ const AddProduct = () => {
                         placeholder="Write a detailed description about the product..."
                         className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                     ></textarea>
+                </div>
+
+                {/* Variant Name & Options */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Variant Type (Optional)
+                        </label>
+                        <input
+                            type="text"
+                            name="variantName"
+                            placeholder="e.g. Size / Weight / Color"
+                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        <p className="text-xs text-gray-400 mt-1">
+                            Fashion এ: Size, Food এ: Weight
+                        </p>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Variant Options (Optional)
+                        </label>
+                        <input
+                            type="text"
+                            name="variantOptions"
+                            placeholder="XL, XXL, XS  বা  1kg, 500g"
+                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        <p className="text-xs text-gray-400 mt-1">
+                            কমা (,) দিয়ে আলাদা করে লিখুন
+                        </p>
+                    </div>
                 </div>
 
                 {/* Submit Button */}

@@ -1,19 +1,16 @@
-import { getSellerCompany } from '@/lib/api/products';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 
-const ProductCard = async ({ product }) => {
+const ProductCard = ({ product, brandName }) => {
     if (!product) return null;
 
-    const company = await getSellerCompany(product.sellerId);
-
-    // Discount logic
-    const hasDiscount = product.discountPrice && product.discountPrice > 0;
-    const originalPrice = product.price;
-    const finalPrice = hasDiscount ? product.price - product.discountPrice : product.price;
+    // 👈 Discount logic
+    const hasDiscount = product.discountPrice && Number(product.discountPrice) > 0;
+    const originalPrice = Number(product.price);
+    const discountAmount = Number(product.discountPrice);
+    const finalPrice = hasDiscount ? originalPrice - discountAmount : originalPrice;
     const discountPercent = hasDiscount
-        ? Math.round((product.discountPrice / product.price) * 100)
+        ? Math.round((discountAmount / originalPrice) * 100)
         : 0;
 
     return (
@@ -27,13 +24,14 @@ const ProductCard = async ({ product }) => {
                     alt={product.name}
                     fill
                     className="object-cover"
+                    unoptimized
                 />
 
-                {/* Company Badge */}
-                {company?.companyName && (
+                {/* 👈 Company Badge — prop থেকে আসছে */}
+                {brandName && (
                     <span className="absolute top-1 left-2 bg-blue-600 text-white 
                     text-xs font-semibold px-3 py-1.5 rounded-lg shadow-md">
-                        {company.companyName}
+                        {brandName}
                     </span>
                 )}
 
@@ -66,13 +64,12 @@ const ProductCard = async ({ product }) => {
                                     ৳{originalPrice}
                                 </span>
 
-                                {/* Final Price — bold red */}
+                                {/* Final Price — bold pink */}
                                 <span className="text-xl font-bold text-pink-600">
                                     ৳{finalPrice}
                                 </span>
                             </>
                         ) : (
-                            /* No discount — only price */
                             <span className="text-xl font-bold text-gray-800">
                                 ৳{originalPrice}
                             </span>

@@ -1,4 +1,3 @@
-
 import AddToCartSection from "@/components/AddToCartSection";
 import { getSellerCompany } from "@/lib/api/products";
 import Image from "next/image";
@@ -13,6 +12,14 @@ const ProductDetails = async ({ params }) => {
     const product = await res.json()
 
     const company = await getSellerCompany(product.sellerId)
+
+    const hasDiscount = product.discountPrice && Number(product.discountPrice) > 0;
+    const originalPrice = Number(product.price);
+    const discountAmount = Number(product.discountPrice);
+    const finalPrice = hasDiscount ? originalPrice - discountAmount : originalPrice;
+    const discountPercent = hasDiscount
+        ? Math.round((discountAmount / originalPrice) * 100)
+        : 0;
 
     return (
         <div className="max-w-7xl mx-auto p-6">
@@ -37,10 +44,17 @@ const ProductDetails = async ({ params }) => {
                         />
                     </div>
 
-                    {/* Category Badge */}
+                    {/* Company Badge */}
                     <span className="absolute top-4 left-4 bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full uppercase tracking-wide">
                         {company?.companyName || 'Brand Name'}
                     </span>
+
+                    {/*Discount % Badge — Top Right */}
+                    {hasDiscount && (
+                        <span className="absolute top-4 right-4 bg-red-500 text-white text-sm font-bold px-3 py-1.5 rounded-lg shadow-md">
+                            -{discountPercent}%
+                        </span>
+                    )}
                 </div>
 
                 {/* Right: Product Info */}
@@ -51,20 +65,39 @@ const ProductDetails = async ({ params }) => {
                         {product.name}
                     </h1>
 
-                    {/* Price */}
+                    {/*Price Section with Discount */}
                     <div className="flex items-end gap-3 mt-5">
-                        <span className="text-4xl font-bold text-blue-600">
-                            {product.price} Taka
-                        </span>
+                        {hasDiscount ? (
+                            <>
+                                {/* Original Price — strikethrough */}
+                                <span className="text-2xl text-gray-400 line-through">
+                                    ৳{originalPrice}
+                                </span>
+
+                                {/* Final Price — bold pink */}
+                                <span className="text-4xl font-bold text-pink-600">
+                                    ৳{finalPrice}
+                                </span>
+
+                                {/* Save Amount */}
+                                <span className="text-sm text-green-600 font-semibold bg-green-50 px-2 py-1 rounded-md mb-1">
+                                    Save ৳{discountAmount}
+                                </span>
+                            </>
+                        ) : (
+                            <span className="text-4xl font-bold text-blue-600">
+                                ৳{originalPrice}
+                            </span>
+                        )}
                     </div>
 
                     {/* Stock */}
                     <div className="mt-4">
-                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold {product.stock > 10
-                                ? 'bg-green-100 text-green-700'
-                                : product.stock > 0
-                                    ? 'bg-yellow-100 text-yellow-700'
-                                    : 'bg-red-100 text-red-700'
+                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${product.stock > 10
+                            ? 'bg-green-100 text-green-700'
+                            : product.stock > 0
+                                ? 'bg-yellow-100 text-yellow-700'
+                                : 'bg-red-100 text-red-700'
                             }`}>
                             {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
                         </span>
@@ -83,13 +116,9 @@ const ProductDetails = async ({ params }) => {
                         </p>
                     </div>
 
-                    <div className="flex justify-end">
-                            
-                            <AddToCartSection product={product}></AddToCartSection>
-                        </div>
-                    </div>
 
-                    
+                    {/* Add to Cart */}
+                    <AddToCartSection product={product} />
 
                     {/* Trust Badges */}
                     <div className="grid grid-cols-3 gap-3 mt-8 pt-6 border-t border-gray-100">
@@ -109,6 +138,7 @@ const ProductDetails = async ({ params }) => {
 
                 </div>
             </div>
+        </div>
     );
 };
 

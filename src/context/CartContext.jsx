@@ -24,23 +24,23 @@ export const CartProvider = ({ children }) => {
 
     }, [user?.id])
 
-    const addToCart = async (product, quantity) => {
+    const addToCart = async (product, quantity, finalPrice, selectedVariant) => {
         if (!user?.id) return
 
         const cartItem = {
             userId: user.id,
             productId: product._id,
             name: product.name,
-            price: product.price,
+            price: finalPrice,
             image: product.image,
-            quantity: quantity
+            quantity: quantity,
+            variantName: product.variantName || '',
+            selectedVariant: selectedVariant || ''
         }
 
         await fetch(`${baseUrl}/api/cart`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(cartItem)
         })
 

@@ -15,10 +15,10 @@ const Cart = () => {
         const confirmRemove = window.confirm('Remove this item from cart?')
         if (!confirmRemove) return
 
-        try{
+        try {
             await removeFromCart(cartItemId)
             toast.success('Item removed from cart')
-        }catch(error){
+        } catch (error) {
             console.error(error)
             toast.error('Failed to remove item')
         }
@@ -50,14 +50,19 @@ const Cart = () => {
                             <div className="w-24 h-24 relative rounded-lg overflow-hidden shrink-0">
                                 <Image src={item.image} alt={item.name} fill className="object-cover" unoptimized />
                             </div>
+
                             <div className="flex-1">
                                 <h3 className="font-semibold text-gray-800">{item.name}</h3>
-                                <p className="text-blue-600 font-bold mt-1">{item.price} Taka</p>
+                                <p className="text-blue-600 font-bold mt-1">৳ {item.price}</p>
+        
+                                {item.selectedVariant && (
+                                    <p className="text-sm text-gray-500">
+                                        {item.variantName}: <span className="font-medium text-gray-700">{item.selectedVariant}</span>
+                                    </p>
+                                )}
                                 <p className="text-sm text-gray-500 mt-1">Quantity: {item.quantity}</p>
                             </div>
-                            <div className="text-right">
-                                <p className="font-bold text-gray-800">{item.price * item.quantity} Taka</p>
-                            </div>
+
                             <button
                                 onClick={() => handleRemove(item._id)}
                                 className="text-red-500 hover:text-red-700 p-2 cursor-pointer">

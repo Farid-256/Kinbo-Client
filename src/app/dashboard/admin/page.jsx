@@ -162,9 +162,11 @@ const AllOrders = () => {
                                                 />
                                                 <div className="flex-1">
                                                     <p className="text-sm font-medium text-gray-800">{item.name}</p>
-                                                    <p className="text-xs text-gray-500">
-                                                        ৳ {item.price} × {item.quantity}
-                                                    </p>
+                                                    {item.selectedVariant && (
+                                                        <p className="text-xs text-blue-600 mt-1">
+                                                            {item.variantName || 'Variant'}: {item.selectedVariant}
+                                                        </p>
+                                                    )}
                                                 </div>
                                                 <p className="text-sm font-bold text-gray-800">
                                                     {Number(item.price) * item.quantity} Taka

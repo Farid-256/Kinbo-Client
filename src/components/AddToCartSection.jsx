@@ -8,20 +8,36 @@ import { toast } from 'react-toastify'
 
 const AddToCartSection = ({ product }) => {
     const [quantity, setQuantity] = useState(1)
+    const [selectedVariant, setSelectedVariant] = useState('')   // 👈 নতুন
     const { addToCart } = useCart()
     const { data: session } = useSession()
     const user = session?.user
 
     const isOwner = user?.id === product.sellerId
-    const isOutOfStock = product.stock <= 0 
+    const isOutOfStock = Number(product.stock) <= 0
+    const hasVariants = product.variantName && product.variantOptions?.length > 0
 
     const handleAdd = async () => {
         if (isOutOfStock) {
             toast.error('This product is out of stock')
             return
         }
-        await addToCart(product, quantity)
+
+
+        if (hasVariants && !selectedVariant) {
+            toast.error(`Please select ${product.variantName}`)
+            return
+        }
+
+
+        const hasDiscount = product.discountPrice && Number(product.discountPrice) > 0
+        const originalPrice = Number(product.price)
+        const discountAmount = Number(product.discountPrice)
+        const finalPrice = hasDiscount ? originalPrice - discountAmount : originalPrice
+
+        await addToCart(product, quantity, finalPrice, selectedVariant)
         toast.success('Added to cart')
+        setSelectedVariant('')   // reset
     }
 
     // Owner message
@@ -57,23 +73,42 @@ const AddToCartSection = ({ product }) => {
 
     return (
         <div className="mt-8 space-y-4">
+
+            {hasVariants && (
+                <div>
+                    <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wide mb-3">
+                        {product.variantName}
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                        {product.variantOptions.map((option, index) => (
+                            <button
+                                key={index}
+                                type="button"
+                                onClick={() => setSelectedVariant(option)}
+                                className={`px-4 py-2 border-2 rounded-lg font-medium transition cursor-pointer
+                                    ${selectedVariant === option
+                                        ? 'border-blue-600 bg-blue-50 text-blue-600'
+                                        : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-600'
+                                    }`}
+                            >
+                                {option}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
+
             {/* Quantity */}
             <div className="flex items-center gap-4">
                 <span className="text-sm font-medium text-gray-700">Quantity:</span>
                 <div className="flex items-center border border-gray-300 rounded-lg">
-                    <button
-                        onClick={() => quantity > 1 && setQuantity(quantity - 1)}
-                        className="px-4 py-2 text-gray-600 hover:bg-gray-50 cursor-pointer"
-                    >
+                    <button onClick={() => quantity > 1 && setQuantity(quantity - 1)}
+                        className="px-4 py-2 text-gray-600 hover:bg-gray-50 cursor-pointer">
                         <FaMinus size={12} />
                     </button>
-                    <span className="px-5 py-2 border-x border-gray-300 font-semibold">
-                        {quantity}
-                    </span>
-                    <button
-                        onClick={() => setQuantity(quantity + 1)}
-                        className="px-4 py-2 text-gray-600 hover:bg-gray-50 cursor-pointer"
-                    >
+                    <span className="px-5 py-2 border-x border-gray-300 font-semibold">{quantity}</span>
+                    <button onClick={() => setQuantity(quantity + 1)}
+                        className="px-4 py-2 text-gray-600 hover:bg-gray-50 cursor-pointer">
                         <FaPlus size={12} />
                     </button>
                 </div>

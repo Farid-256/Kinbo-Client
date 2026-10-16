@@ -93,9 +93,21 @@ const OrderPage = () => {
                                                         className="rounded object-cover"
                                                         unoptimized
                                                     />
-                                                    <div>
-                                                        <p className="text-xs font-medium text-gray-700">{item.name}</p>
-                                                        <p className="text-xs text-gray-400">Qty: {item.quantity}</p>
+
+                                                    <div className="min-w-0 flex-1">
+                                                        <p className="text-xs font-medium text-gray-700">
+                                                            {item.name}
+                                                        </p>
+
+                                                        {item.selectedVariant && (
+                                                            <p className="text-xs text-blue-600 mt-1">
+                                                                {item.variantName || 'Variant'}: {item.selectedVariant}
+                                                            </p>
+                                                        )}
+
+                                                        <p className="text-xs text-gray-400 mt-1">
+                                                            Qty: {item.quantity}
+                                                        </p>
                                                     </div>
                                                 </div>
                                             ))}
