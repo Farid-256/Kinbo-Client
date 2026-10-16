@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { getAllCompanies, deleteCompany } from '@/lib/api/products'
 import Image from 'next/image'
-import { FaStore, FaTrash, FaPhone, FaMapMarkerAlt, FaUser } from 'react-icons/fa'
+import { FaStore, FaTrash, FaPhone, FaMapMarkerAlt } from 'react-icons/fa'
 
 const AllCompanies = () => {
     const { data: session, isPending } = useSession()

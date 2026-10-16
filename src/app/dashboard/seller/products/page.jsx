@@ -122,7 +122,7 @@ const SellerProducts = () => {
                                         <td className="px-6 py-4">
                                             {product.discountPrice > 0 ? (
                                                 <span className="font-semibold text-green-600">
-                                                    {product.discountPrice}%
+                                                    {product.discountPrice}
                                                 </span>
                                             ) : (
                                                 <span className="text-xs text-gray-400">No discount</span>

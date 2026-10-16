@@ -39,7 +39,7 @@ const ProductDetails = async ({ params }) => {
 
                     {/* Category Badge */}
                     <span className="absolute top-4 left-4 bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full uppercase tracking-wide">
-                        {company?.companyName}
+                        {company?.companyName || 'Brand Name'}
                     </span>
                 </div>
 

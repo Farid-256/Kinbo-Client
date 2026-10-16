@@ -128,6 +128,7 @@ const AddProduct = () => {
                             <option value="Fashion">Fashion</option>
                             <option value="Electronics">Electronics</option>
                             <option value="Food">Food</option>
+                            <option value="Food">Cosmetic</option>
                             <option value="Others">Others</option>
                         </select>
                     </div>
@@ -137,12 +138,12 @@ const AddProduct = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Price Taka</label>
-                        <input type="number" name="price" required placeholder="e.g. 500"
+                        <input type="number" name="price" required placeholder="Real Price: e.g. 500"
                             className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Discount Price</label>
-                        <input type="number" name="discountPrice" placeholder="e.g. 450"
+                        <input type="number" name="discountPrice" placeholder="Discount Price: e.g. 50"
                             className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                     <div>
@@ -152,7 +153,7 @@ const AddProduct = () => {
                     </div>
                 </div>
 
-                {/* 👈 Image Upload (ImgBB) */}
+                {/*Image Upload (ImgBB) */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                         Product Image <span className="text-red-500">*</span>
