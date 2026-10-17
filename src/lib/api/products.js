@@ -7,10 +7,19 @@ export const getCompanyProducts = async (sellerId, status = 'active') => {
     return res.json()
 }
 
-export const getAllProducts = async () => {
-    const res = await fetch(`${baseUrl}/api/products?status=active`)
-    return res.json()
-}
+
+export const getAllProducts = async (page = 1, limit = 32) => {
+    const res = await fetch(
+        `${baseUrl}/api/products?status=active&page=${page}&limit=${limit}`,{cache: 'no-store'}
+    );
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch products');
+    }
+
+    return res.json();
+};
+
 
 export const getSellerCompany = async (sellerId) => {
     const res = await fetch(`${baseUrl}/api/my-company?sellerId=${sellerId}`)
@@ -78,43 +87,43 @@ export const deleteProduct = async (productId) => {
     return res.json()
 }
 
-export const deleteCart = async(cartItemId) =>{
-    const res = await fetch(`${baseUrl}/api/cart/${cartItemId}`,{
+export const deleteCart = async (cartItemId) => {
+    const res = await fetch(`${baseUrl}/api/cart/${cartItemId}`, {
         method: 'DELETE',
     })
     return res.json()
 }
 
-export const clearUserCart = async(userId) =>{
-    const res = await fetch(`${baseUrl}/api/cart/user/${userId}`,{
+export const clearUserCart = async (userId) => {
+    const res = await fetch(`${baseUrl}/api/cart/user/${userId}`, {
         method: 'DELETE'
     })
     return res.json()
 }
 
-export const getProductById = async(productId) =>{
+export const getProductById = async (productId) => {
     const res = await fetch(`${baseUrl}/api/products/${productId}`)
     return res.json()
 }
 
-export const updateProduct = async(productId, updateProduct) =>{
-    const res = await fetch(`${baseUrl}/api/products/${productId}`,{
+export const updateProduct = async (productId, updateProduct) => {
+    const res = await fetch(`${baseUrl}/api/products/${productId}`, {
         method: 'PATCH',
         headers: {
-            'Content-Type' : 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(updateProduct)
     })
     return res.json()
 }
 
-export const getAllCompanies = async() =>{
+export const getAllCompanies = async () => {
     const res = await fetch(`${baseUrl}/api/companies`)
     return res.json()
 }
 
-export const deleteCompany = async(companyId) =>{
-    const res = await fetch(`${baseUrl}/api/companies/${companyId}`,{
+export const deleteCompany = async (companyId) => {
+    const res = await fetch(`${baseUrl}/api/companies/${companyId}`, {
         method: 'DELETE'
     })
     return res.json()

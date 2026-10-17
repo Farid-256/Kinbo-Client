@@ -18,7 +18,7 @@ const Navbar = () => {
     const user = session?.user
     const router = useRouter()
     const { cart } = useCart()
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0)
+    const totalItems = cart.length
 
     const handleClick = () => {
         setOpen(!open)
