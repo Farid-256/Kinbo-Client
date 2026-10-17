@@ -17,7 +17,7 @@ const SellerProducts = () => {
 
         const fetchProducts = async () => {
             const data = await getCompanyProducts(user.id)
-            setProducts(data)
+            setProducts(data.products || [])
             setLoading(false)
         }
         fetchProducts()

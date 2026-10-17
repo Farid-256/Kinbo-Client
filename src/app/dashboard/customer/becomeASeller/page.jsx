@@ -2,7 +2,7 @@
 
 import { FaStore, FaPhone, FaCheckCircle, FaArrowLeft } from 'react-icons/fa'
 import Link from 'next/link'
-import { useSession } from '@/lib/auth-client'
+import { authClient, useSession } from '@/lib/auth-client'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -19,7 +19,12 @@ const BecomeSeller = () => {
         if (!user?.id) return
         const checkRequest = async () => {
             try {
-                const res = await fetch(`${baseUrl}/api/seller-requests/check?userId=${user.id}`)
+                const { data: tokenData } = await authClient.token();
+                const token = tokenData?.token;
+
+                const res = await fetch(`${baseUrl}/api/seller-requests/check?userId=${user.id}`, {
+                    headers: { authorization: `Bearer ${token}` }
+                })
                 const data = await res.json()
                 if (data?.status) setAlreadyRequested(data.status)
             } catch (error) {
@@ -31,6 +36,7 @@ const BecomeSeller = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setSubmitting(true)
 
         const userData = new FormData(e.currentTarget)
         const formData = Object.fromEntries(userData.entries())
@@ -44,22 +50,32 @@ const BecomeSeller = () => {
             createdAt: new Date()
         }
 
-        const res = await fetch(`${baseUrl}/api/seller-requests`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestData)
+        try {
+            const { data: tokenData } = await authClient.token();
+            const token = tokenData?.token;
 
-        })
-        const result = await res.json()
+            const res = await fetch(`${baseUrl}/api/seller-requests`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(requestData)
+            })
+            const result = await res.json()
 
-        if (result.insertedId) {
-            toast.success('Request submitted!')
-            e.target.reset()
-        }
-        else {
-            toast.error('Failed to submit')
+            if (result.insertedId) {
+                toast.success('Request submitted!')
+                e.target.reset()
+                setAlreadyRequested('pending')
+            } else {
+                toast.error('Failed to submit')
+            }
+        } catch (error) {
+            console.error(error)
+            toast.error('Something went wrong')
+        } finally {
+            setSubmitting(false)
         }
     }
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useCart } from '@/context/CartContext'
-import { useSession } from '@/lib/auth-client'
+import { authClient, useSession } from '@/lib/auth-client'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -11,7 +11,7 @@ const Checkout = () => {
     const { data: session, isPending } = useSession()
     const user = session?.user
     const router = useRouter()
-    const { cart, clearCart} = useCart()
+    const { cart, clearCart } = useCart()
     const [submitting, setSubmitting] = useState(false)
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
@@ -48,9 +48,14 @@ const Checkout = () => {
         }
 
         try {
+            const { data: tokenData } = await authClient.token();
+            const token = tokenData?.token;
             const res = await fetch(`${baseUrl}/api/orders`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`
+                },
                 body: JSON.stringify(orderData)
             })
             const result = await res.json()

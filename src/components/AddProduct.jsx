@@ -1,5 +1,6 @@
 'use client';
 
+import { authClient } from '@/lib/auth-client';
 import { toast } from 'react-toastify';
 
 const AddProduct = () => {
@@ -7,22 +8,26 @@ const AddProduct = () => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
         const newProduct = Object.fromEntries(formData.entries())
-        
+
+        const { data: tokenData } = await authClient.token();
+        const token = tokenData?.token;
+
         const res = await fetch('http://localhost:5000/api/products', {
-            
+
             method: 'POST',
             headers: {
-                'Content-Type' :'application/json'
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${token}`
             },
             body: JSON.stringify(newProduct)
         })
 
-        const data = await res.json()
+        const result = await res.json()
 
-        if(data.insertedId){
+        if (result.insertedId) {
             toast.success('Data added successfully')
         }
-        else{
+        else {
             toast.error('Failed to add data')
         }
     }

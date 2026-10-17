@@ -1,7 +1,7 @@
 'use client'
 
 import { clearUserCart, deleteCart } from '@/lib/api/products'
-import { useSession } from '@/lib/auth-client'
+import { authClient, useSession } from '@/lib/auth-client'
 import { createContext, useContext, useEffect, useState } from 'react'
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
@@ -16,7 +16,14 @@ export const CartProvider = ({ children }) => {
         if (!user?.id) return
 
         const loadCart = async () => {
-            const res = await fetch(`${baseUrl}/api/cart/${user.id}`)
+            const { data: tokenData } = await authClient.token();
+            const token = tokenData?.token;
+
+            const res = await fetch(`${baseUrl}/api/cart/${user.id}`, {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            })
             const data = await res.json()
             setCart(data)
         }
@@ -26,6 +33,9 @@ export const CartProvider = ({ children }) => {
 
     const addToCart = async (product, quantity, finalPrice, selectedVariant) => {
         if (!user?.id) return
+
+        const { data: tokenData } = await authClient.token();
+        const token = tokenData?.token;
 
         const cartItem = {
             userId: user.id,
@@ -40,11 +50,18 @@ export const CartProvider = ({ children }) => {
 
         await fetch(`${baseUrl}/api/cart`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${token}`
+            },
             body: JSON.stringify(cartItem)
         })
 
-        const res = await fetch(`${baseUrl}/api/cart/${user.id}`)
+        const res = await fetch(`${baseUrl}/api/cart/${user.id}`, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        })
         const data = await res.json()
         setCart(data)
     }

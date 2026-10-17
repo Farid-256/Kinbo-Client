@@ -1,14 +1,24 @@
 import AddToCartSection from "@/components/AddToCartSection";
 import { getSellerCompany } from "@/lib/api/products";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
-import { FaHeart, FaTruck, FaShieldAlt, FaUndoAlt } from "react-icons/fa";
+import { FaTruck, FaShieldAlt, FaUndoAlt } from "react-icons/fa";
 import { IoArrowBack } from "react-icons/io5";
 
 const ProductDetails = async ({ params }) => {
     const { id } = await params;
+    const {token} = await auth.api.getToken({
+        headers: await headers()
+    })
+
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    const res = await fetch(`${baseUrl}/api/products/${id}`)
+    const res = await fetch(`${baseUrl}/api/products/${id}`, {
+        headers: {
+            authorization : `Bearer ${token}`
+        }
+    })
     const product = await res.json()
 
     const company = await getSellerCompany(product.sellerId)
