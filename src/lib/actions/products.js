@@ -3,10 +3,13 @@ import { authClient } from "../auth-client"
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
 export const creatProduct = async (newProduct) => {
+    const { data: tokenData } = await authClient.token();
+    const token = tokenData?.token;
     const res = await fetch(`${baseUrl}/api/products`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`
         },
         body: JSON.stringify(newProduct)
     })
@@ -20,7 +23,7 @@ export const creatCompany = async (newCompany) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            authorization: `Bearer ${token}` 
+            authorization: `Bearer ${token}`
         },
         body: JSON.stringify(newCompany)
     })
