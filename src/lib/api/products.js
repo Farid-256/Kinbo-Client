@@ -114,7 +114,13 @@ export const saveBanner = async (bannerData) => {
 }
 
 export const getBanner = async () => {
-    const res = await fetch(`${baseUrl}/api/banner`)
+    const { data: tokenData } = await authClient.token();
+    const token = tokenData?.token;
+    const res = await fetch(`${baseUrl}/api/banner`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    })
     return res.json()
 }
 
