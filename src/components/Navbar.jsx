@@ -84,8 +84,6 @@ const Navbar = () => {
                     open === true && (<div className="flex flex-col gap-5">
                         <Link onClick={closeMenu} href='/' className={`text-xl ${pathName === '/' ? 'font-bold text-blue-500' : 'text-xl text-gray-500'}`}>Home</Link>
 
-                        <Link onClick={closeMenu} href='/shop' className={`text-xl ${pathName === '/shop' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>Shop</Link>
-
                         <Link onClick={closeMenu} href='/dashboard/seller' className={`text-xl ${pathName === '/dashboard/seller' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>Dashboard</Link>
 
                         <Link onClick={closeMenu} href='/about' className={`text-xl ${pathName === '/about' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>About</Link>
