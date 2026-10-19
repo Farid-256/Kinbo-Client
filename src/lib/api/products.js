@@ -113,6 +113,8 @@ export const saveBanner = async (bannerData) => {
     return res.json()
 }
 
+
+
 export const getBanner = async () => {
     const { data: tokenData } = await authClient.token();
     const token = tokenData?.token;

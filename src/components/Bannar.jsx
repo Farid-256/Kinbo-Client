@@ -25,14 +25,8 @@ const Bannar = () => {
 
     return (
         <div className="relative w-full h-96">
-            <Image
-                src={banner.imageUrl}
-                alt={banner.title || 'Banner'}
-                fill
-                className="object-cover"
-                unoptimized
-                priority
-            />
+            <Image src={banner.imageUrl} alt={banner.title || 'Banner'} fill className="object-cover"
+                unoptimized priority/>
             {banner.title && (
                 <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white text-center px-4">
                     <h1 className="text-4xl md:text-6xl font-bold">{banner.title}</h1>
