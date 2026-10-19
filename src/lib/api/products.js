@@ -100,13 +100,11 @@ export const updateSellerRequest = async (requestId, status) => {
 }
 
 export const saveBanner = async (bannerData) => {
-    const { data: tokenData } = await authClient.token();
-    const token = tokenData?.token;
+
     const res = await fetch(`${baseUrl}/api/banner`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`
         },
         body: JSON.stringify(bannerData)
     })
@@ -116,13 +114,7 @@ export const saveBanner = async (bannerData) => {
 
 
 export const getBanner = async () => {
-    const { data: tokenData } = await authClient.token();
-    const token = tokenData?.token;
-    const res = await fetch(`${baseUrl}/api/banner`, {
-        headers: {
-            authorization: `Bearer ${token}`
-        }
-    })
+    const res = await fetch(`${baseUrl}/api/banner`)
     return res.json()
 }
 
