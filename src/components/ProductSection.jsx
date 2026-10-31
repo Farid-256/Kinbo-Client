@@ -1,23 +1,17 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import ProductCard from './ProductCard'
 import { FaSearch } from 'react-icons/fa'
 
-const ProductSection = ({
-    products = [],
-    companies = [],
-    currentPage = 1,
-    totalPages= 1
-}) => {
-    const [productSearch, setProductSearch] = useState('')
-    const [companySearch, setCompanySearch] = useState('')
-    
-    const [categoryFilter, setCategoryFilter] = useState('') 
-
+const ProductSection = ({ products = [], companies = [], currentPage = 1, totalPages = 1 }) => {
     const router = useRouter()
     const searchParams = useSearchParams()
+
+    const [productSearch, setProductSearch] = useState(searchParams.get('search') || '')
+    const [companySearch, setCompanySearch] = useState(searchParams.get('company') || '')
+    const [categoryFilter, setCategoryFilter] = useState(searchParams.get('category') || '')
 
     const getBrandName = (sellerId) => {
         if (!Array.isArray(companies)) return null;
@@ -25,22 +19,27 @@ const ProductSection = ({
         return company?.companyName || null
     }
 
-    const filteredProducts = products.filter((product) => {
-        const brandName = getBrandName(product.sellerId) || ''
+    const isFirstRender = useRef(true)
 
-        const matchProduct = (product.name || '')
-            .toLowerCase()
-            .includes(productSearch.toLowerCase())
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
 
-        const matchCompany = brandName
-            .toLowerCase()
-            .includes(companySearch.toLowerCase())
+        const delayDebounceFn = setTimeout(() => {
+            const params = new URLSearchParams()
+            
+            if (productSearch) params.set('search', productSearch)
+            if (companySearch) params.set('company', companySearch)
+            if (categoryFilter) params.set('category', categoryFilter)
+            
+            params.set('page', '1')
+            router.push(`?${params.toString()}`, { scroll: false })
+        }, 500)
 
-        const matchCategory = categoryFilter === '' || 
-            (product.category || '').toLowerCase() === categoryFilter.toLowerCase()
-
-        return matchProduct && matchCompany && matchCategory
-    })
+        return () => clearTimeout(delayDebounceFn)
+    }, [productSearch, companySearch, categoryFilter, router]) 
 
     const goToPage = (page) => {
         const params = new URLSearchParams(searchParams.toString())
@@ -51,16 +50,11 @@ const ProductSection = ({
     return (
         <section className="max-w-7xl mx-auto px-4 py-12">
             <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-gray-800">
-                    Our Products
-                </h2>
-                <p className="text-gray-500 mt-2">
-                    Browse our latest collection
-                </p>
+                <h2 className="text-3xl font-bold text-gray-800">Our Products</h2>
+                <p className="text-gray-500 mt-2">Browse our latest collection</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 max-w-5xl mx-auto">
-                
                 {/* Product Search */}
                 <div className="relative">
                     <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -85,7 +79,7 @@ const ProductSection = ({
                     />
                 </div>
 
-
+                {/* Category Filter */}
                 <div className="relative">
                     <select
                         value={categoryFilter}
@@ -96,6 +90,7 @@ const ProductSection = ({
                         <option value="Food">Food</option>
                         <option value="Chemical">Chemical</option>
                         <option value="Chicken">Chicken</option>
+                        <option value="Egg">Egg</option>
                         <option value="Others">Others</option>
                     </select>
 
@@ -103,26 +98,20 @@ const ProductSection = ({
                         <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                     </div>
                 </div>
-
             </div>
 
             <p className="text-sm text-gray-500 text-center mb-6">
-                {filteredProducts.length} product
-                {filteredProducts.length !== 1 ? 's' : ''} found on this page
+                {products.length} products found
             </p>
 
-            {filteredProducts.length === 0 ? (
+            {products.length === 0 ? (
                 <div className="text-center py-20">
-                    <p className="text-xl text-gray-500">
-                        No products found on this page
-                    </p>
-                    <p className="text-sm text-gray-400 mt-2">
-                        Try a different search term or category
-                    </p>
+                    <p className="text-xl text-gray-500">No products found</p>
+                    <p className="text-sm text-gray-400 mt-2">Try a different search term or category</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
-                    {filteredProducts.map(product => (
+                    {products.map(product => (
                         <ProductCard
                             key={product._id}
                             product={product}
@@ -142,17 +131,12 @@ const ProductSection = ({
                         Previous
                     </button>
 
-                    {Array.from(
-                        { length: totalPages },
-                        (_, i) => i + 1
-                    ).map(page => (
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
                         <button
                             key={page}
                             onClick={() => goToPage(page)}
                             className={`min-w-10 px-3 py-2 border rounded-lg ${
-                                currentPage === page
-                                    ? 'bg-blue-600 text-white border-blue-600'
-                                    : 'hover:bg-gray-100'
+                                currentPage === page ? 'bg-blue-600 text-white border-blue-600' : 'hover:bg-gray-100'
                             }`}
                         >
                             {page}

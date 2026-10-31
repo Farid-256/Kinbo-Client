@@ -9,10 +9,14 @@ export const getCompanyProducts = async (sellerId, status = 'active') => {
 }
 
 
-export const getAllProducts = async (page = 1, limit = 32) => {
-    const res = await fetch(
-        `${baseUrl}/api/products?status=active&page=${page}&limit=${limit}`, { cache: 'no-store' }
-    )
+export const getAllProducts = async ({ page = 1, limit = 32, search = '', company = '', category = '' }) => {
+    // URL তৈরি করলাম
+    let url = `${baseUrl}/api/products?status=active&page=${page}&limit=${limit}`;
+    if (search) url += `&search=${encodeURIComponent(search)}`;
+    if (company) url += `&company=${encodeURIComponent(company)}`;
+    if (category) url += `&category=${encodeURIComponent(category)}`;
+
+    const res = await fetch(url, { cache: 'no-store' });
 
     if (!res.ok) {
         throw new Error('Failed to fetch products');
