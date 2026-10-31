@@ -39,10 +39,15 @@ const Navbar = () => {
             <nav className="px-5 md:px-10 lg:px-20 py-2 border-b flex justify-between items-center sticky top-0 z-50 bg-white">
 
                 <div>
-                    <Link className="flex items-center" href={'/'}>
-                        <Image src='/assets/my-cart.jpg' height={80} width={80} alt="logo"></Image>
-                        <h3 className="text-3xl font-bold text-blue-800">Kinbo</h3>
-                    </Link>
+                    <Link href='/'><h3 className="text-3xl text-blue-500">
+                        <span className="text-blue-700 text-4xl">O</span>
+                        <span className="text-blue-600">u</span>
+                        <span className="text-blue-500">m</span>
+                        <span className="text-blue-400">b</span>
+                        <span className="text-blue-300">O</span>
+                        <span className="text-blue-200">O</span>
+
+                    </h3></Link>
                 </div>
 
                 <div className="hidden md:flex gap-5">
@@ -67,8 +72,8 @@ const Navbar = () => {
                     <div>
                         {
                             user ?
-                                <button onClick={handleSignOut} className="px-8 py-2 bg-blue-800 font-bold text-yellow-200 cursor-pointer hover:bg-red-800 hover:text-white">Log Out</button> : <Link href='/auth/login'>
-                                    <button className="px-8 py-2 bg-blue-800 font-bold text-yellow-200 cursor-pointer hover:bg-red-800 hover:text-white">Login</button>
+                                <button onClick={handleSignOut} className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-700 hover:text-white">Log Out</button> : <Link href='/auth/login'>
+                                    <button className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-700 hover:text-white">Login</button>
                                 </Link>
                         }
                     </div>
@@ -90,8 +95,10 @@ const Navbar = () => {
 
                         <div>
                             {
-                                user ? <button onClick={() => { handleSignOut(); closeMenu(); }} className="px-8 py-2 bg-blue-800 font-bold text-yellow-200 cursor-pointer hover:bg-red-800 hover:text-white">Log Out</button> : <Link href='/auth/login'>
-                                    <button onClick={closeMenu} className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-800 hover:text-white">Login</button>
+                                user ? <button onClick={() => { handleSignOut(); closeMenu(); }} className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-700 hover:text-white">
+                                    Log Out</button> : <Link href='/auth/login'>
+                                    
+                                    <button onClick={closeMenu} className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-700 hover:text-white">Login</button>
                                 </Link>
                             }
                         </div>

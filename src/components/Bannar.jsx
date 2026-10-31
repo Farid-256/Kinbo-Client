@@ -17,21 +17,35 @@ const Bannar = () => {
 
     if (!banner?.imageUrl) {
         return (
-            <div className="relative w-full h-96 bg-gray-100 flex items-center justify-center">
-                <p className="text-gray-400">No banner set yet</p>
+            <div className="w-full px-4 lg:px-20 py-4">
+                <div className="relative w-full h-64 md:h-96 bg-gray-100 flex items-center justify-center rounded-2xl">
+                    <p className="text-gray-400">No banner set yet</p>
+                </div>
             </div>
         )
     }
 
     return (
-        <div className="relative w-full h-96">
-            <Image src={banner.imageUrl} alt={banner.title || 'Banner'} fill className="object-cover"
-                unoptimized priority/>
-            {banner.title && (
-                <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white text-center px-4">
-                    <h1 className="text-4xl md:text-6xl font-bold">{banner.title}</h1>
-                </div>
-            )}
+        <div className="w-full mb-5">
+
+            <div className="relative w-full bg-gray-100 overflow-hidden shadow-sm">
+                <Image
+                    src={banner.imageUrl}
+                    alt={banner.title || 'Banner'}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    className="w-full h-auto"
+                    unoptimized
+                    priority
+                />
+
+                {banner.title && (
+                    <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white text-center px-4">
+                        <h1 className="text-4xl md:text-6xl font-bold">{banner.title}</h1>
+                    </div>
+                )}
+            </div>
         </div>
     )
 }

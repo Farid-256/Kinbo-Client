@@ -67,7 +67,7 @@ const SetBanner = () => {
         }
     }
 
-    // Submit — MongoDB তে সেভ
+    // Submit — MongoDB
     const handleSubmit = async (e) => {
         e.preventDefault()
         setSubmitting(true)

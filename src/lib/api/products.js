@@ -12,7 +12,7 @@ export const getCompanyProducts = async (sellerId, status = 'active') => {
 export const getAllProducts = async (page = 1, limit = 32) => {
     const res = await fetch(
         `${baseUrl}/api/products?status=active&page=${page}&limit=${limit}`, { cache: 'no-store' }
-    );
+    )
 
     if (!res.ok) {
         throw new Error('Failed to fetch products');

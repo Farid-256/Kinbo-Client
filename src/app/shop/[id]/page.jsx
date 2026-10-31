@@ -9,14 +9,14 @@ import { IoArrowBack } from "react-icons/io5";
 
 const ProductDetails = async ({ params }) => {
     const { id } = await params;
-    const {token} = await auth.api.getToken({
+    const { token } = await auth.api.getToken({
         headers: await headers()
     })
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     const res = await fetch(`${baseUrl}/api/products/${id}`, {
         headers: {
-            authorization : `Bearer ${token}`
+            authorization: `Bearer ${token}`
         }
     })
     const product = await res.json()
@@ -43,13 +43,14 @@ const ProductDetails = async ({ params }) => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-white rounded-3xl shadow-sm border border-gray-100 p-6 md:p-8">
 
                 {/* Left: Product Image */}
+                {/* Left: Product Image */}
                 <div className="relative">
                     <div className="relative w-full h-96 bg-gray-50 rounded-2xl overflow-hidden">
                         <Image
                             src={product.image}
                             alt={product.name}
                             fill
-                            className="object-cover"
+                            className="object-contain p-4"
                             unoptimized
                         />
                     </div>
@@ -59,7 +60,7 @@ const ProductDetails = async ({ params }) => {
                         {company?.companyName || 'Brand Name'}
                     </span>
 
-                    {/*Discount % Badge — Top Right */}
+                    {/* Discount % Badge */}
                     {hasDiscount && (
                         <span className="absolute top-4 right-4 bg-red-500 text-white text-sm font-bold px-3 py-1.5 rounded-lg shadow-md">
                             -{discountPercent}%

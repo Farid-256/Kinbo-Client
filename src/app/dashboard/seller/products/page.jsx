@@ -24,7 +24,7 @@ const SellerProducts = () => {
     }, [user?.id])
 
     if (isPending) {
-        return <h3>Loading...</h3>
+        return <h3 className="text-center text-5xl text-blue-600">Loading...</h3>
     }
 
     if (!user) {

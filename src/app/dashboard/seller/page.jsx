@@ -188,9 +188,9 @@ const CompanyProfile = () => {
 
                     {/* Logo - only this overlaps banner */}
                     <div className="px-8">
-                        <div className="w-36 h-36 rounded-full bg-white p-1.5 shadow-lg border-4 border-white -mt-14 relative z-10">
+                        <div className="w-full h-36 rounded-sm bg-white p-1.5 shadow-lg border-4 border-white -mt-14 relative z-10">
                             <Image src={company.image || '/assets/placeholder.png'} alt={company.companyName || 'Company logo'} width={112} height={112}
-                                className="w-full h-full rounded-xl object-cover" unoptimized />
+                                className="w-full h-full object-cover" unoptimized />
                         </div>
                     </div>
 

@@ -8,7 +8,6 @@ import {
     FaPhone,
     FaMapMarkerAlt,
 } from 'react-icons/fa';
-import { BsCart3 } from 'react-icons/bs';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -20,12 +19,17 @@ const Footer = () => {
 
                     {/* ১. Brand Section */}
                     <div>
-                        <Link href="/" className="flex items-center gap-2 mb-4">
-                            <BsCart3 className="text-2xl text-blue-500" />
-                            <h3 className="text-2xl font-bold text-white">
-                                Kinbo
-                            </h3>
-                        </Link>
+                        <div>
+                            <Link href='/'><h3 className="text-3xl text-blue-500">
+                                <span className="text-blue-700 text-4xl">O</span>
+                                <span className="text-blue-600">u</span>
+                                <span className="text-blue-500">m</span>
+                                <span className="text-blue-400">b</span>
+                                <span className="text-blue-300">O</span>
+                                <span className="text-blue-200">O</span>
+
+                            </h3></Link>
+                        </div>
                         <p className="text-sm text-gray-400 leading-relaxed">
                             Shop fashion, gadgets & more at the best prices. Fast delivery, trusted quality — only on Kinbo.
                         </p>
@@ -50,7 +54,6 @@ const Footer = () => {
                         <h4 className="text-white font-semibold text-lg mb-4">Quick Links</h4>
                         <ul className="space-y-2 text-sm">
                             <li><Link href="/" className="hover:text-blue-500 transition">Home</Link></li>
-                            <li><Link href="/shop" className="hover:text-blue-500 transition">Shop</Link></li>
                             <li><Link href="/dashboard" className="hover:text-blue-500 transition">Dashboard</Link></li>
                             <li><Link href="/about" className="hover:text-blue-500 transition">About Us</Link></li>
                         </ul>
@@ -62,7 +65,6 @@ const Footer = () => {
                         <ul className="space-y-2 text-sm">
                             <li><Link href="#" className="hover:text-blue-500 transition">Contact Us</Link></li>
                             <li><Link href="#" className="hover:text-blue-500 transition">Return Policy</Link></li>
-                            <li><Link href="#" className="hover:text-blue-500 transition">Shipping Info</Link></li>
                             <li><Link href="#" className="hover:text-blue-500 transition">Privacy Policy</Link></li>
                         </ul>
                     </div>
