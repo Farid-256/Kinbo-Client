@@ -170,9 +170,11 @@ const EditProduct = () => {
                             className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
                         >
                             <option value="">Select Category</option>
-                            <option value="Fashion">Fashion</option>
-                            <option value="Electronics">Electronics</option>
                             <option value="Food">Food</option>
+                            <option value="Chicken">Chicken</option>
+                            <option value="Fish">Fish</option>
+                            <option value="Egg">Egg</option>
+                            <option value="Chemical">Chemical</option>
                             <option value="Others">Others</option>
                         </select>
                     </div>
