@@ -93,10 +93,9 @@ const ProductSection = ({
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer appearance-none"
                     >
                         <option value="">All Categories</option>
-                        <option value="Fashion">Fashion</option>
-                        <option value="Electronics">Electronics</option>
                         <option value="Food">Food</option>
-                        <option value="Cosmetic">Cosmetic</option>
+                        <option value="Chemical">Chemical</option>
+                        <option value="Chicken">Chicken</option>
                         <option value="Others">Others</option>
                     </select>
 
@@ -122,7 +121,7 @@ const ProductSection = ({
                     </p>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
                     {filteredProducts.map(product => (
                         <ProductCard
                             key={product._id}

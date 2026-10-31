@@ -41,9 +41,8 @@ const ProductDetails = async ({ params }) => {
             </Link>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-white rounded-3xl shadow-sm border border-gray-100 p-6 md:p-8">
-
                 {/* Left: Product Image */}
-                <div className="sticky top-24 self-start">
+                <div className="lg:sticky lg:top-24 lg:self-start">
                     <div className="relative w-full h-96 bg-gray-50 rounded-2xl overflow-hidden">
                         <Image
                             src={product.image}
