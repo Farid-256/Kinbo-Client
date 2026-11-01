@@ -24,15 +24,15 @@ const SellerProducts = () => {
     }, [user?.id])
 
     if (isPending) {
-        return <h3 className="text-center text-5xl text-blue-600">Loading...</h3>
+        return <h3 className="text-center text-3xl md:text-5xl text-blue-600 py-10">Loading...</h3>
     }
 
     if (!user) {
-        return <h3>Please Login</h3>
+        return <h3 className="text-center text-red-500 py-10">Please Login</h3>
     }
 
     if (loading) {
-        return <h3>Loading Products...</h3>
+        return <h3 className="text-center text-gray-500 py-10">Loading Products...</h3>
     }
 
     const handleDelete = async (productId) => {
@@ -51,21 +51,20 @@ const SellerProducts = () => {
             console.error(error)
             toast.error('Something went wrong')
         }
-
     }
 
     return (
-        <div className="p-6 max-w-7xl mx-auto">
+        <div className="p-4 md:p-6 max-w-7xl mx-auto w-full">
 
-            {/*Page Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+            {/* Page Header */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-800">My Products</h1>
-                    <p className="text-gray-500 mt-1">Manage all your listed products in one place.</p>
+                    <h1 className="text-2xl md:text-3xl font-bold text-gray-800">My Products</h1>
+                    <p className="text-sm md:text-base text-gray-500 mt-1">Manage all your listed products in one place.</p>
                 </div>
                 <Link
                     href="/dashboard/seller/products/addProducts"
-                    className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition shadow-md"
+                    className="w-full md:w-auto text-center px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition shadow-md"
                 >
                     + Add New Product
                 </Link>
@@ -80,46 +79,49 @@ const SellerProducts = () => {
                     </div>
                 ) : (
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
+                        <table className="w-full text-left border-collapse text-xs md:text-sm">
                             <thead>
-                                <tr className="bg-gray-50 text-gray-500 text-sm">
-                                    <th className="px-6 py-4 font-medium">Product</th>
-                                    <th className="px-6 py-4 font-medium">Category</th>
-                                    <th className="px-6 py-4 font-medium">Price</th>
-                                    <th className="px-6 py-4 font-medium">Discount Price</th>
-                                    <th className="px-6 py-4 font-medium">Stock</th>
-                                    <th className="px-6 py-4 font-medium text-right">Actions</th>
+                                <tr className="bg-gray-50 text-gray-500">
+                                    <th className="px-3 md:px-6 py-3 md:py-4 font-medium">Product</th>
+                                    <th className="hidden md:table-cell px-6 py-4 font-medium">Category</th>
+                                    <th className="px-3 md:px-6 py-3 md:py-4 font-medium">Price</th>
+                                    <th className="hidden md:table-cell px-6 py-4 font-medium">Discount</th>
+                                    <th className="px-3 md:px-6 py-3 md:py-4 font-medium text-center md:text-left">Stock</th>
+                                    <th className="px-3 md:px-6 py-3 md:py-4 font-medium text-right">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="text-sm">
+                            <tbody>
                                 {products.map((product) => (
                                     <tr key={product._id} className="border-b border-gray-50 hover:bg-gray-50 transition">
-                                        {/* Product Name + Image */}
-                                        <td className="px-6 py-4">
-                                            <div className="flex items-center gap-3">
-                                                <Image src={product.image} width={48} height={48} alt={product.name} className="rounded-lg object-cover border border-gray-200" />
-                                                <div>
-                                                    <p className="font-semibold text-gray-800 line-clamp-1">
+
+                                        <td className="px-3 md:px-6 py-3 md:py-4">
+                                            <div className="flex items-center gap-2 md:gap-3">
+                                                <Image
+                                                    src={product.image}
+                                                    width={40}
+                                                    height={40}
+                                                    alt={product.name}
+                                                    className="rounded-lg object-cover border border-gray-200 w-10 h-10 md:w-12 md:h-12 shrink-0"
+                                                />
+                                                <div className="min-w-0">
+                                                    <p className="font-semibold text-gray-800 line-clamp-2 md:line-clamp-1">
                                                         {product.name}
                                                     </p>
                                                 </div>
                                             </div>
                                         </td>
 
-                                        {/* Category */}
-                                        <td className="px-6 py-4 text-gray-600">
+                                        <td className="hidden md:table-cell px-6 py-4 text-gray-600">
                                             {product.category}
                                         </td>
 
-                                        {/* Price */}
-                                        <td className="px-6 py-4">
+                                        <td className="px-3 md:px-6 py-3 md:py-4">
                                             <span className="font-semibold text-gray-800">
                                                 {product.price} Taka
                                             </span>
                                         </td>
 
-                                        {/* Discount Price */}
-                                        <td className="px-6 py-4">
+                                        <td className="hidden md:table-cell px-6 py-4">
                                             {product.discountPrice > 0 ? (
                                                 <span className="font-semibold text-green-600">
                                                     {product.discountPrice}
@@ -129,26 +131,24 @@ const SellerProducts = () => {
                                             )}
                                         </td>
 
-                                        {/* Stock */}
-                                        <td className="px-6 py-4">
+                                        <td className="px-3 md:px-6 py-3 md:py-4 text-center md:text-left">
                                             <span
-                                                className={`px-3 py-1 rounded-full text-xs font-medium ${product.stock > 10
+                                                className={`inline-block px-2 md:px-3 py-1 rounded-full text-[10px] md:text-xs font-medium ${product.stock > 10
                                                         ? "bg-green-100 text-green-700"
                                                         : product.stock > 0
                                                             ? "bg-yellow-100 text-yellow-700"
                                                             : "bg-red-100 text-red-700"
                                                     }`}
                                             >
-                                                {product.stock > 0 ? `${product.stock}` : "Out of stock"}
+                                                {product.stock > 0 ? `${product.stock}` : "Out"}
                                             </span>
                                         </td>
 
-                                        {/* Actions */}
-                                        <td className="px-6 py-4">
-                                            <div className="flex justify-end gap-2">
+                                        <td className="px-3 md:px-6 py-3 md:py-4">
+                                            <div className="flex flex-col md:flex-row justify-end gap-1.5 md:gap-2">
                                                 <Link
                                                     href={`/dashboard/seller/products/edit/${product._id}`}
-                                                    className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 font-medium rounded-lg transition text-xs"
+                                                    className="px-2 md:px-3 py-1 md:py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 font-medium rounded-lg transition text-[10px] md:text-xs text-center"
                                                 >
                                                     Edit
                                                 </Link>
@@ -156,7 +156,7 @@ const SellerProducts = () => {
                                                 <button
                                                     onClick={() => handleDelete(product._id)}
                                                     type="button"
-                                                    className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 font-medium rounded-lg transition text-xs cursor-pointer"
+                                                    className="px-2 md:px-3 py-1 md:py-1.5 bg-red-50 hover:bg-red-100 text-red-600 font-medium rounded-lg transition text-[10px] md:text-xs cursor-pointer text-center"
                                                 >
                                                     Delete
                                                 </button>
@@ -169,7 +169,6 @@ const SellerProducts = () => {
                     </div>
                 )}
             </div>
-
         </div>
     );
 };
