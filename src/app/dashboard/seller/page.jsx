@@ -12,7 +12,6 @@ import { MdEdit } from 'react-icons/md';
 import { toast } from 'react-toastify';
 
 const CompanyProfile = () => {
-
     const [uploading, setUploading] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
     const [imageUrl, setImageUrl] = useState('');
@@ -24,17 +23,14 @@ const CompanyProfile = () => {
     const [editing, setEditing] = useState(false)
     const router = useRouter()
 
-
     useEffect(() => {
         if (isPending) return
         if (!user) {
             router.push('/auth/login')
-        }
-        else if (user.role !== 'business') {
+        } else if (user.role !== 'business') {
             router.push('/dashboard')
         }
     }, [user, router, isPending])
-
 
     useEffect(() => {
         if (!user?.id) {
@@ -53,23 +49,17 @@ const CompanyProfile = () => {
                 setLoading(false)
             }
         }
-
         fetchCompany()
-
     }, [user?.id])
 
-    // Image upload to imgbb
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
-        // Validate file size (max 5MB)
         if (file.size > 5 * 1024 * 1024) {
             toast.error('Image size must be less than 5MB');
             return;
         }
-
-        // Validate file type
         if (!file.type.startsWith('image/')) {
             toast.error('Please select an image file');
             return;
@@ -92,7 +82,6 @@ const CompanyProfile = () => {
                 setImagePreview(url);
                 toast.success('Image uploaded successfully!');
             } else {
-                console.error(data);
                 toast.error(data.error?.message || "Image upload failed");
             }
         } catch (error) {
@@ -126,9 +115,7 @@ const CompanyProfile = () => {
                 toast.success(company ? 'Profile Updated Successfully' : 'Profile Created Successfully')
                 setCompany(dataSubmit)
                 setEditing(false)
-
-            }
-            else {
+            } else {
                 toast.error('Profile not saved')
             }
         }
@@ -150,33 +137,31 @@ const CompanyProfile = () => {
     }
 
     if (loading || isPending) {
-        return <h3 className='text-7xl text-blue-500 font-medium text-center py-20'>
-            Loading...
-        </h3>
+        return <h3 className='text-3xl md:text-5xl text-blue-500 font-medium text-center py-20'>Loading...</h3>
     }
 
     if (!user?.id) {
         return <h3>Please Login First</h3>
     }
 
+    // ✅ View Mode (Read Only)
     if (company && !editing) {
         return (
-            <div className="p-6 max-w-4xl mx-auto">
-
+            <div className="p-4 md:p-6 max-w-4xl mx-auto w-full">
                 {/* Page Header */}
-                <div className="flex items-center justify-between mb-8">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 md:mb-8 gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold text-gray-800">Company Profile</h1>
-                        <p className="text-gray-500 mt-1">Your business information at a glance.</p>
+                        <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Company Profile</h1>
+                        <p className="text-sm md:text-base text-gray-500 mt-1">Your business information at a glance.</p>
                     </div>
                 </div>
 
                 {/* Company Card */}
-                <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
+                <div className="bg-white rounded-2xl md:rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
 
                     {/* Cover Banner */}
-                    <div className="h-28 bg-blue-500 relative">
-                        <span className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide
+                    <div className="h-24 md:h-32 bg-blue-500 relative">
+                        <span className={`absolute top-3 right-3 md:top-4 md:right-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide
                         ${company.status === 'active'
                                 ? 'bg-green-100 text-green-700'
                                 : company.status === 'pending'
@@ -186,19 +171,25 @@ const CompanyProfile = () => {
                         </span>
                     </div>
 
-                    {/* Logo - only this overlaps banner */}
-                    <div className="px-8">
-                        <div className="w-full h-36 rounded-sm bg-white p-1.5 shadow-lg border-4 border-white -mt-14 relative z-10">
-                            <Image src={company.image || '/assets/placeholder.png'} alt={company.companyName || 'Company logo'} width={112} height={112}
-                                className="w-full h-full object-cover" unoptimized />
+                    {/* ✅ Logo - Fixed size for mobile and desktop */}
+                    <div className="px-4 md:px-8">
+                        <div className="w-24 h-24 md:w-32 md:h-32 rounded-full md:rounded-2xl bg-white p-1 shadow-lg border-4 border-white -mt-12 md:-mt-16 relative z-10 overflow-hidden">
+                            <Image
+                                src={company.image || '/assets/placeholder.png'}
+                                alt={company.companyName || 'Company logo'}
+                                width={128}
+                                height={128}
+                                className="w-full h-full object-cover rounded-full md:rounded-xl"
+                                unoptimized
+                            />
                         </div>
                     </div>
 
                     {/* Company Name + Industry + Edit */}
-                    <div className="px-8 pt-4 pb-8">
+                    <div className="px-4 md:px-8 pt-4 pb-6 md:pb-8">
                         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
                             <div>
-                                <h2 className="text-3xl font-bold text-gray-800">
+                                <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
                                     {company.companyName}
                                 </h2>
                                 <span className="inline-block mt-2 px-3 py-1 bg-blue-50 text-blue-700 text-sm font-semibold rounded-full">
@@ -208,7 +199,7 @@ const CompanyProfile = () => {
 
                             <button
                                 onClick={() => setEditing(true)}
-                                className="flex items-center gap-1 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition shadow-md cursor-pointer self-start md:self-center"
+                                className="flex items-center justify-center gap-2 w-full md:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition shadow-md cursor-pointer"
                             >
                                 <MdEdit /> Edit Profile
                             </button>
@@ -217,7 +208,7 @@ const CompanyProfile = () => {
                         <div className="border-t border-gray-100 mb-6"></div>
 
                         {/* Info Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                             <div className="flex items-start gap-3">
                                 <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 text-lg shrink-0">
                                     <IoLocationSharp />
@@ -244,40 +235,41 @@ const CompanyProfile = () => {
                             <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
                                 About Company
                             </p>
-                            <p className="text-gray-600 leading-relaxed">
+                            <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                                 {company.description}
                             </p>
                         </div>
                     </div>
-
                 </div>
             </div>
         )
     }
 
+    // ✅ Form Mode (Create/Edit)
     return (
-
-        <div className="p-6 max-w-4xl mx-auto">
-
+        <div className="p-4 md:p-6 max-w-4xl mx-auto w-full">
             {/* Page Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 md:mb-8 gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-800">Creat Company</h1>
-                    <p className="text-gray-500 mt-1">Set up your company information to build trust with customers.</p>
+                    <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
+                        {company ? 'Edit Company' : 'Create Company'}
+                    </h1>
+                    <p className="text-sm md:text-base text-gray-500 mt-1">
+                        Set up your company information to build trust with customers.
+                    </p>
                 </div>
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 space-y-6">
-
+            <form onSubmit={handleSubmit} className="bg-white p-4 md:p-8 rounded-2xl shadow-sm border border-gray-100 space-y-5 md:space-y-6">
                 {/* Company Logo Upload */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                         Company Logo <span className="text-red-500">*</span>
                     </label>
                     <div
-                        className={`border-2 border-dashed rounded-lg p-6 text-center transition cursor-pointer
-    ${imagePreview ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-blue-500'}`}
+                        className={`border-2 border-dashed rounded-lg p-4 md:p-6 text-center transition cursor-pointer
+                        ${imagePreview ? 'border-green-500 bg-green-50' : 'border-gray-300 hover:border-blue-500'}`}
                         onClick={() => fileInputRef.current?.click()}>
                         <input
                             type="file"
@@ -297,25 +289,25 @@ const CompanyProfile = () => {
                                 <Image
                                     src={imagePreview}
                                     alt="Preview"
-                                    width={200}
+                                    width={150}
                                     height={150}
-                                    className="mx-auto rounded-lg object-cover max-h-48"
+                                    className="mx-auto rounded-full object-cover w-24 h-24 md:w-32 md:h-32"
                                     unoptimized
                                 />
                                 <p className="text-sm text-green-600 mt-2">✅ Image uploaded! Click to change</p>
                             </div>
                         ) : (
                             <div className="flex flex-col items-center gap-2">
-                                <FaCloudUploadAlt size={48} className="text-gray-400" />
-                                <p className="text-gray-600">Click or drag to upload image</p>
-                                <p className="text-xs text-gray-400">PNG, JPG, GIF up to 5MB</p>
+                                <FaCloudUploadAlt size={40} className="text-gray-400" />
+                                <p className="text-sm md:text-base text-gray-600">Click or drag to upload image</p>
+                                <p className="text-xs text-gray-400">PNG, JPG up to 5MB</p>
                             </div>
                         )}
                     </div>
                 </div>
 
                 {/* Company Name & Industry */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
                         <input
@@ -324,7 +316,7 @@ const CompanyProfile = () => {
                             defaultValue={company?.companyName || ''}
                             required
                             placeholder="e.g. Kinbo Enterprise"
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
                         />
                     </div>
                     <div>
@@ -333,20 +325,20 @@ const CompanyProfile = () => {
                             name="industry"
                             defaultValue={company?.industry || ''}
                             required
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-sm md:text-base">
                             <option value="">Select Industry</option>
                             <option value="Food">Food & Beverage</option>
-                           <option value="Chicken">Chicken</option>
-                           <option value="Fish">Fish</option>
-                           <option value="Egg">Egg</option>
-                           <option value="Chemical">Chemical</option>
+                            <option value="Chicken">Chicken</option>
+                            <option value="Fish">Fish</option>
+                            <option value="Egg">Egg</option>
+                            <option value="Chemical">Chemical</option>
                             <option value="Others">Others</option>
                         </select>
                     </div>
                 </div>
 
                 {/* Location & Phone */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
                         <input
@@ -355,7 +347,7 @@ const CompanyProfile = () => {
                             defaultValue={company?.location || ''}
                             required
                             placeholder="e.g. Bogura Sadar, Bogura"
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
                         />
                     </div>
                     <div>
@@ -365,7 +357,7 @@ const CompanyProfile = () => {
                             name="phone"
                             defaultValue={company?.phone || ''}
                             placeholder="e.g. +8801XXXXXXXXX"
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
                         />
                     </div>
                 </div>
@@ -375,31 +367,30 @@ const CompanyProfile = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-1">Company Description</label>
                     <textarea
                         name="description"
-                        defaultValue={company?.description || ''} 
+                        defaultValue={company?.description || ''}
                         required
-                        rows="5"
+                        rows="4"
                         placeholder="Write about your company"
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-sm md:text-base"
                     ></textarea>
                 </div>
 
                 {/* Submit Button */}
-                <div className="pt-4 border-t border-gray-100 flex gap-3">
+                <div className="pt-4 border-t border-gray-100 flex flex-col sm:flex-row gap-3">
                     <button
                         type="submit"
-                        className="w-full md:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition shadow-md cursor-pointer"
+                        className="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition shadow-md cursor-pointer text-sm md:text-base"
                     >
                         {company ? 'Update Profile' : 'Save Profile'}
                     </button>
                     <button
                         onClick={handleCancel}
                         type="button"
-                        className="w-full md:w-auto px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg transition cursor-pointer"
+                        className="w-full sm:w-auto px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg transition cursor-pointer text-sm md:text-base"
                     >
                         Cancel
                     </button>
                 </div>
-
             </form>
         </div>
     );

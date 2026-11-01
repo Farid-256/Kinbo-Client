@@ -31,7 +31,7 @@ const Footer = () => {
                             </h3></Link>
                         </div>
                         <p className="text-sm text-gray-400 leading-relaxed">
-                            Shop fashion, gadgets & more at the best prices. Fast delivery, trusted quality — only on Kinbo.
+                            Shop Quality & Convenience
                         </p>
                         <div className="flex gap-3 mt-5">
                             <a href="#" className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 transition">

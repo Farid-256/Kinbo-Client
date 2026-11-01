@@ -8,7 +8,7 @@ const AboutPage = () => {
             {/* Hero Section */}
             <section className="bg-linear-to-r from-blue-600 to-blue-800 text-white py-20 px-6">
                 <div className="max-w-5xl mx-auto text-center">
-                    <h1 className="text-5xl md:text-6xl font-bold mb-4">About Kinbo</h1>
+                    <h1 className="text-5xl md:text-6xl font-bold mb-4">About Oumboo</h1>
                     <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
                         Bangladeshi modern marketplace connecting buyers and sellers - one click at a time.
                     </p>
@@ -21,13 +21,13 @@ const AboutPage = () => {
                     <div>
                         <h2 className="text-3xl font-bold text-gray-800 mb-4">Our Story</h2>
                         <p className="text-gray-600 leading-relaxed mb-4">
-                            Kinbo was born from a simple idea <span className="font-semibold text-gray-800">shopping should be easy, transparent, and accessible to everyone.</span>
+                            Oumboo was born from a simple idea <span className="font-semibold text-gray-800">shopping should be easy, transparent, and accessible to everyone.</span>
                         </p>
                         <p className="text-gray-600 leading-relaxed mb-4">
-                            We noticed that small business owners in Bangladesh struggled to reach customers online, while buyers were stuck with limited choices. So we built Kinbo - a platform where sellers can showcase their products and customers can discover, compare, and buy with confidence.
+                            We noticed that small business owners in Bangladesh struggled to reach customers online, while buyers were stuck with limited choices. So we built Oumboo - a platform where sellers can showcase their products and customers can discover, compare, and buy with confidence.
                         </p>
                         <p className="text-gray-600 leading-relaxed">
-                            Today, Kinbo is growing into a trusted marketplace with a focus on quality, security, and customer satisfaction.
+                            Today, Oumboo is growing into a trusted marketplace with a focus on quality, security, and customer satisfaction.
                         </p>
                     </div>
                     <div className="flex justify-center">
@@ -41,7 +41,7 @@ const AboutPage = () => {
             {/* Why Choose Us */}
             <section className="bg-gray-50 py-16 px-6">
                 <div className="max-w-5xl mx-auto">
-                    <h2 className="text-3xl font-bold text-gray-800 text-center mb-12">Why Choose Kinbo?</h2>
+                    <h2 className="text-3xl font-bold text-gray-800 text-center mb-12">Why Choose Oumboo?</h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
