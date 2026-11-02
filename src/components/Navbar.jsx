@@ -1,7 +1,6 @@
 'use client'
 import { useCart } from "@/context/CartContext";
 import { signOut, useSession } from "@/lib/auth-client";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -50,19 +49,21 @@ const Navbar = () => {
                     </h3></Link>
                 </div>
 
+                {/* Desktop Menu */}
                 <div className="hidden md:flex gap-5">
-                    <Link href='/' className={`text-xl ${pathName === '/' ? 'font-bold text-blue-500' : 'text-xl text-gray-500'}`}>Home</Link>
+                    <Link href='/' className={`text-xl ${pathName === '/' ? 'font-bold text-blue-500' : 'text-xl text-gray-500'}`}>
+                        Home</Link>
 
-                    <Link href='/about' className={`text-xl ${pathName === '/about' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>About</Link>
+                    <Link href='/about' className={`text-xl ${pathName === '/about' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>
+                        About</Link>
 
                     <Link href='/dashboard/seller' className={`text-xl ${pathName === '/dashboard/seller' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>Dashboard</Link>
                 </div>
 
+                {/* Desktop Cart & Auth */}
                 <div className="hidden md:flex items-center gap-10">
                     <Link href='/cart' className="flex flex-col items-center">
-
                         <h3 className="text-2xl"><BsCart3 /></h3>
-
                         <div className="flex gap-1">
                             <h3 className="text-xl text-gray-500">My Cart</h3>
                             <h4 className="text-green-500">{totalItems}</h4>
@@ -80,13 +81,26 @@ const Navbar = () => {
 
                 </div>
 
-                <button onClick={handleClick} className="md:hidden">{open === false ? <IoReorderThreeOutline className="text-3xl" /> : <RxCross2 className="text-3xl" />}</button>
+                {/* Mobile Menu*/}
+                <div className="flex md:hidden items-center gap-5">
+                    <Link href='/cart' className="flex flex-col items-center">
+                        <h3 className="text-2xl"><BsCart3 /></h3>
+                        <div className="flex gap-1">
+                            <h3 className="text-xl text-gray-500">My Cart</h3>
+                            <h4 className="text-green-500">{totalItems}</h4>
+                        </div>
+                    </Link>
+
+                    <button onClick={handleClick}>
+                        {open === false ? <IoReorderThreeOutline className="text-3xl" /> : <RxCross2 className="text-3xl" />}
+                    </button>
+                </div>
             </nav>
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu Dropdown */}
             <div className="md:hidden flex flex-col pr-10 items-end">
                 {
-                    open === true && (<div className="flex flex-col gap-5">
+                    open === true && (<div className="flex flex-col gap-5 mt-4">
                         <Link onClick={closeMenu} href='/' className={`text-xl ${pathName === '/' ? 'font-bold text-blue-500' : 'text-xl text-gray-500'}`}>Home</Link>
 
                         <Link onClick={closeMenu} href='/dashboard/seller' className={`text-xl ${pathName === '/dashboard/seller' ? 'font-bold text-blue-500' : 'text-gray-500'}`}>Dashboard</Link>
@@ -97,7 +111,7 @@ const Navbar = () => {
                             {
                                 user ? <button onClick={() => { handleSignOut(); closeMenu(); }} className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-700 hover:text-white">
                                     Log Out</button> : <Link href='/auth/login'>
-                                    
+
                                     <button onClick={closeMenu} className="px-8 py-2 bg-blue-900 font-bold text-yellow-200 cursor-pointer hover:bg-blue-700 hover:text-white">Login</button>
                                 </Link>
                             }
