@@ -155,22 +155,26 @@ const AllOrders = () => {
                                                 <Image
                                                     src={item.image}
                                                     alt={item.name}
-                                                    width={48}
-                                                    height={48}
+                                                    width={96}
+                                                    height={96}
                                                     className="rounded-lg object-cover"
                                                     unoptimized
                                                 />
                                                 <div className="flex-1">
-                                                    <p className="text-sm font-medium text-gray-800">{item.name}</p>
+                                                    <div className='flex flex-col'>
+                                                        <h3 className="text-sm font-medium text-gray-800">{item.name}</h3>
+                                                        <h3>{
+                                                            item.companyName && <p className="text-xs text-blue-600 font-semibold mt-0.5">{item.companyName}</p>
+                                                        }</h3>
+                                                        <p className="text-sm font-medium text-gray-800">Quentity: {item.quantity}</p>
+                                                    </div>
+
                                                     {item.selectedVariant && (
                                                         <p className="text-xs text-blue-600 mt-1">
                                                             {item.variantName || 'Variant'}: {item.selectedVariant}
                                                         </p>
                                                     )}
                                                 </div>
-                                                <p className="text-sm font-bold text-gray-800">
-                                                    {Number(item.price) * item.quantity} Taka
-                                                </p>
                                             </div>
                                         ))}
                                     </div>
@@ -185,10 +189,10 @@ const AllOrders = () => {
                                             Total Amount
                                         </p>
                                         <p className="text-3xl font-bold text-blue-700 mt-1">
-                                            ৳ {order.subtotal}
+                                            {order.subtotal} Taka
                                         </p>
                                         <p className="text-xs text-blue-500 mt-1">
-                                            💵 Cash on Delivery
+                                            Cash on Delivery
                                         </p>
                                     </div>
 

@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 
 const AddToCartSection = ({ product }) => {
     const [quantity, setQuantity] = useState(1)
-    const [selectedVariant, setSelectedVariant] = useState('')   // 👈 নতুন
+    const [selectedVariant, setSelectedVariant] = useState('')
     const { addToCart } = useCart()
     const { data: session } = useSession()
     const user = session?.user
@@ -23,7 +23,6 @@ const AddToCartSection = ({ product }) => {
             return
         }
 
-
         if (hasVariants && !selectedVariant) {
             toast.error(`Please select ${product.variantName}`)
             return
@@ -37,7 +36,7 @@ const AddToCartSection = ({ product }) => {
 
         await addToCart(product, quantity, finalPrice, selectedVariant)
         toast.success('Added to cart')
-        setSelectedVariant('')   // reset
+        setSelectedVariant('')
     }
 
     // Owner message

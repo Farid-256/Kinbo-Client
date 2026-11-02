@@ -113,7 +113,7 @@ const OrderPage = () => {
                                     </td>
 
                                     <td className="px-6 py-4">
-                                        <span className="font-bold text-gray-800">৳ {singleOrder.subtotal}</span>
+                                        <span className="font-bold text-gray-800">{singleOrder.subtotal} Taka</span>
                                     </td>
 
                                     <td className="px-6 py-4 text-xs text-gray-500">
@@ -201,7 +201,7 @@ const OrderPage = () => {
                                 {new Date(singleOrder.createdAt).toLocaleDateString()}
                             </span>
                             <span className="font-bold text-gray-800 text-base">
-                                ৳ {singleOrder.subtotal}
+                                {singleOrder.subtotal} Taka
                             </span>
                         </div>
                     </div>
