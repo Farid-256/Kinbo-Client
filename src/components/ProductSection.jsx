@@ -84,13 +84,14 @@ const ProductSection = ({ products = [], companies = [], currentPage = 1, totalP
                     <select
                         value={categoryFilter}
                         onChange={(e) => setCategoryFilter(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer appearance-none"
-                    >
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer appearance-none">
                         <option value="">All Categories</option>
                         <option value="Food">Food</option>
                         <option value="Chemical">Chemical</option>
                         <option value="Chicken">Chicken</option>
+                        <option value="Fish">Fish</option>
                         <option value="Egg">Egg</option>
+                        <option value="Spices">Spices</option>
                         <option value="Others">Others</option>
                     </select>
 
